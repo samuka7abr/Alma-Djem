@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: #000;
+		background-color: #FFFFFF;
 		color: #fff;
 		font-family: 'Inter', sans-serif;
 		font-size: 1.6rem;
