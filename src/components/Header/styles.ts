@@ -5,9 +5,16 @@ export const Container = styled.header`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 6rem;
+	height: 8rem;
 	padding: 0 2rem;
-	background: rgba(0, 0, 0, 0.8);
+	background: linear-gradient(
+		to right,
+		#ee028b 0%,
+		rgba(253, 201, 240, 1) 30%,
+		rgba(253, 201, 240, 1) 70%,
+		#ee028b 100%
+	);
+	border-bottom: solid 1px rgb(68, 68, 68);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -15,30 +22,42 @@ export const Container = styled.header`
 	z-index: 10;
 `
 
+
 export const Logo = styled.div`
 	display: flex;
 	align-items: center;
-    margin-left: 15px;
+	margin-left: 15px;
 
 	img {
-		height: 4rem;
+		height: 6rem;
 		width: auto;
 		object-fit: contain;
 	}
 `
 
-
 export const Actions = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 2rem;
+	gap: 4rem;
 `
 
 export const SocialLink = styled.a`
-	font-size: 1.4rem;
+	font-size: 1.6rem;
+	color: #000
 `
 
-export const Burger = styled.button`
+export const Socials = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 3rem;
+`
+
+export const SocialIcon = styled.a`
 	font-size: 2.4rem;
-    color: #FFFFFF
+	color:rgb(0, 0, 0);
+	transition: transform 0.2s ease;
+
+	&:hover {
+		transform: scale(1.1);
+	}
 `
