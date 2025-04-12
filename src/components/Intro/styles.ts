@@ -1,9 +1,14 @@
 import styled, { keyframes } from 'styled-components'
 
-const pulse = keyframes`
-	0%   { transform: scale(1); }
-	50%  { transform: scale(1.1); }
-	100% { transform: scale(1); }
+const fadeInUp = keyframes`
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 `
 
 const floatAndMorph = keyframes`
@@ -71,10 +76,12 @@ export const LogoWrapper = styled.div`
 	z-index: 10;
 
 	img {
-		height: 24rem;
-		animation: ${pulse} 4s ease-in-out infinite;
+		height: 28rem;
+		opacity: 0;
+		animation: ${fadeInUp} 1.6s ease-out forwards;
 	}
 `
+
 
 export const ArrowWrapper = styled.div`
 	z-index: 10;

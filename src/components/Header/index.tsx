@@ -10,8 +10,9 @@ export function Header() {
 			</Logo>
 
 			<Actions>
-				<SocialLink href="#">Link 1</SocialLink>
-				<SocialLink href="#">Link 2</SocialLink>
+				<SocialLink href="#">HOME</SocialLink>
+				<SocialLink href="#">DISCOGRAFIA</SocialLink>
+				<SocialLink href="#">CONTATO</SocialLink>
 			</Actions>
 
 			<Actions>

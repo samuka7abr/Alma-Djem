@@ -9,10 +9,10 @@ export const Container = styled.header`
 	padding: 0 2rem;
 	background: linear-gradient(
 		to right,
-		#ee028b 0%,
-		rgba(253, 201, 240, 1) 30%,
-		rgba(253, 201, 240, 1) 70%,
-		#ee028b 100%
+		#EC4E31 0%,
+		#FFE3DB 30%,
+		#FFE3DB 70%,
+		#EC4E31 100%
 	);
 	border-bottom: solid 1px rgb(68, 68, 68);
 	display: flex;
@@ -21,7 +21,6 @@ export const Container = styled.header`
 	backdrop-filter: blur(10px);
 	z-index: 10;
 `
-
 
 export const Logo = styled.div`
 	display: flex;
@@ -38,23 +37,46 @@ export const Logo = styled.div`
 export const Actions = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 4rem;
+	gap: 6rem;
 `
 
 export const SocialLink = styled.a`
+	position: relative;
 	font-size: 1.6rem;
-	color: #000
+	color: rgb(63, 63, 63);
+	transition: color 0.2s ease;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		width: 0%;
+		height: 1px;
+		background-color: rgb(63, 63, 63);
+		transition: width 0.3s ease;
+	}
+
+	&:hover {
+		color: rgb(40, 40, 40);
+
+		&::after {
+			width: 100%;
+		}
+	}
 `
+
 
 export const Socials = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 3rem;
+	margin-right: 2rem;
+	gap: 6rem;
 `
 
 export const SocialIcon = styled.a`
-	font-size: 2.4rem;
-	color:rgb(0, 0, 0);
+	font-size: 1.6rem;
+	color:rgb(63, 63, 63);
 	transition: transform 0.2s ease;
 
 	&:hover {
