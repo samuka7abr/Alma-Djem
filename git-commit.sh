@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd "$(dirname "$0")"/..
-
 echo ""
 echo "📁 Commitando em: $(pwd)"
 echo ""
