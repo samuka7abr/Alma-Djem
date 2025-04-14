@@ -13,7 +13,7 @@ export const IntroContainer = styled.section`
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(to bottom, #f0048a 0%, #ec4e31 100%);
+  background: linear-gradient(to left, #f0048a 0%, #ec4e31 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,7 +48,7 @@ export const Text = styled.p`
 export const Button = styled.button`
   width: 22rem;
   padding: 1.4rem 0;
-  background-color: rgb(219, 0, 124);
+  background-color: #ff1470;
   color: white;
   border: none;
   border-radius: 3rem;
@@ -58,13 +58,16 @@ export const Button = styled.button`
   cursor: pointer;
   text-align: center;
   white-space: nowrap;
-  transition: background 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
   margin-left: 100px;
+  box-shadow: 0 4px 12px rgba(255, 20, 112, 0.3);
 
   &:hover {
-    background-color: #c6006f;
+    background-color: #d60060;
+    box-shadow: 0 6px 18px rgba(214, 0, 96, 0.4);
   }
 `
+
 
 export const SideLogo = styled.div`
   img {

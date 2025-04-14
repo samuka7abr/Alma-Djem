@@ -6,7 +6,7 @@ export function Header() {
 	return (
 		<Container>
 			<Logo>
-				<img src={logo} alt="Logo Almad'Jem" />
+				<img src={logo} alt="Logo Alma Djem" />
 			</Logo>
 
 			<Actions>

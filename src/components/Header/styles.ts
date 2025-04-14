@@ -5,16 +5,10 @@ export const Container = styled.header`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 8rem;
+	height: 7rem;
 	padding: 0 2rem;
-	background: linear-gradient(
-		to right,
-		#EC4E31 0%,
-		#FFE3DB 30%,
-		#FFE3DB 70%,
-		#EC4E31 100%
-	);
-	border-bottom: solid 1px rgb(68, 68, 68);
+	background: #FFFFFF;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -80,6 +74,6 @@ export const SocialIcon = styled.a`
 	transition: transform 0.2s ease;
 
 	&:hover {
-		transform: scale(1.1);
+		transform: scale(1.2);
 	}
 `
