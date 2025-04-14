@@ -1,7 +1,8 @@
-import { IntroOption2 } from './components/IntroOp2';
+import { Intro2Test } from './components/Intro2Test';
+
 
 export function App(){  
   return ( 
-    <IntroOption2/>
+    <Intro2Test/>
   )
 }
