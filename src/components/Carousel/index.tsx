@@ -1,27 +1,42 @@
-import React, { useRef, useState, Fragment } from 'react'
+import React, { useCallback, useState, useRef } from 'react';
 import {
   CarouselContainer,
   Track,
-  VideoWrapper,
-  StyledVideo,
-  StyledImage,
-  TextOverlay,
-  ArrowLeft,
-  ArrowRight,
-  LinkButton
-} from './styles'
+  SlideWrapper,
+  VideoContent,
+  ImageContent,
+  SlideTitle,
+  ActionButton,
+  PrevButton,
+  NextButton
+} from './styles';
 
-const slides = [
+type Direction = 'left' | 'right';
+type MouseZone = 'left' | 'center' | 'right';
+
+interface SlideItem {
+  id: string;
+  src: string;
+  title: string;
+  link: string;
+  isImage: boolean;
+  hasBackground: boolean;
+  fullSize: boolean;
+}
+
+const slides: SlideItem[] = [
   {
-    src: '../../../public/video/v1.mp4',
-    title: `Alma Djem feat Maneva - Aeroporto`,
+    id: 'slide-1',
+    src: '/video/v1.mp4',
+    title: 'Alma Djem feat Maneva - Aeroporto',
     link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ',
     isImage: false,
-    hasBackground: false,  
+    hasBackground: false,
     fullSize: false
   },
   {
-    src: '../../../public/capa-album.png',
+    id: 'slide-2',
+    src: '/capa-album.png',
     title: 'DVD Alma Djem Acústico em São Paulo',
     link: 'https://open.spotify.com/intl-pt/album/2zCD0650sdKCLipMHhv1Yq?si=F2J-8QsSSgaFLbdmP_FjaQ',
     isImage: true,
@@ -29,81 +44,114 @@ const slides = [
     fullSize: false
   },
   {
-    src: '../../../public/banda.png',
+    id: 'slide-3',
+    src: '/banda.png',
     title: 'Conheça a história da banda Alma Djem',
     link: 'https://www.almadjem.com.br/material/Release-Alma_Djem.pdf',
     isImage: true,
     hasBackground: false,
     fullSize: true
   }
-]
+];
 
-export function Carousel() {
-  const [current, setCurrent] = useState(0)
-  const [direction, setDirection] = useState<'left' | 'right'>('right')
-  const [mouseZone, setMouseZone] = useState<'left' | 'center' | 'right'>('center')
+export const Carousel: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState<Direction>('right');
+  const [mouseZone, setMouseZone] = useState<MouseZone>('center');
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const trackRef = useRef<HTMLDivElement>(null)
+  const currentSlide = slides[currentIndex];
 
-  const next = () => {
-    setDirection('right')
-    setCurrent(prev => (prev + 1) % slides.length)
-  }
+  const handleNext = useCallback(() => {
+    setDirection('right');
+    setCurrentIndex(prev => (prev + 1) % slides.length);
+  }, []);
 
-  const prev = () => {
-    setDirection('left')
-    setCurrent(prev => (prev - 1 + slides.length) % slides.length)
-  }
+  const handlePrev = useCallback(() => {
+    setDirection('left');
+    setCurrentIndex(prev => (prev - 1 + slides.length) % slides.length);
+  }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, currentTarget } = e
-    const width = currentTarget.clientWidth
-    if (clientX < width * 0.13) setMouseZone('left')
-    else if (clientX > width * 0.86) setMouseZone('right')
-    else setMouseZone('center')
-  }
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, currentTarget } = e;
+    const { width } = currentTarget.getBoundingClientRect();
+    
+    if (clientX < width * 0.33) {
+      setMouseZone('left');
+    } else if (clientX > width * 0.66) {
+      setMouseZone('right');
+    } else {
+      setMouseZone('center');
+    }
+  }, []);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      handlePrev();
+    } else if (e.key === 'ArrowRight') {
+      handleNext();
+    }
+  }, [handleNext, handlePrev]);
 
   return (
-    <CarouselContainer onMouseMove={handleMouseMove}>
-      <Fragment key={current}>
-        <TextOverlay direction={direction}>
-          {slides[current].title}
-        </TextOverlay>
-        <LinkButton
-          direction={direction}
-          href={slides[current].link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Veja Mais
-        </LinkButton>
-      </Fragment>
+    <CarouselContainer 
+      onMouseMove={handleMouseMove} 
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="region"
+      aria-label="Galeria de conteúdo Alma Djem"
+    >
+      <SlideTitle direction={direction}>
+        {currentSlide.title}
+      </SlideTitle>
+      <ActionButton
+        direction={direction}
+        href={currentSlide.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Veja mais sobre: ${currentSlide.title}`}
+      >
+        Veja Mais
+      </ActionButton>
 
-      <ArrowLeft onClick={prev}>&#8592;</ArrowLeft>
-      <ArrowRight onClick={next}>&#8594;</ArrowRight>
+      <PrevButton 
+        onClick={handlePrev} 
+        aria-label="Slide anterior"
+        type="button"
+      >
+        &#8592;
+      </PrevButton>
+      <NextButton 
+        onClick={handleNext} 
+        aria-label="Próximo slide"
+        type="button"
+      >
+        &#8594;
+      </NextButton>
 
       <Track
         ref={trackRef}
-        style={{ transform: `translateX(-${current * 100}vw)` }}
+        style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
       >
         {slides.map((slide, index) => (
-          <VideoWrapper
-            key={index}
-            isFocused={index === current && mouseZone === 'center'}
-            hasBackground={slide.hasBackground}
+          <SlideWrapper
+            key={slide.id}
+            $isFocused={index === currentIndex && mouseZone === 'center'}
+            $hasBackground={slide.hasBackground}
           >
             {slide.isImage ? (
-              <StyledImage
+              <ImageContent
                 src={slide.src}
                 alt={slide.title}
-                fullSize={slide.fullSize}
+                $fullSize={slide.fullSize}
+                loading="lazy"
               />
             ) : (
-              <StyledVideo src={slide.src} autoPlay muted loop />
+              <VideoContent src={slide.src} autoPlay muted loop playsInline />
             )}
-          </VideoWrapper>
+          </SlideWrapper>
         ))}
       </Track>
     </CarouselContainer>
-  )
-}
+  );
+};
