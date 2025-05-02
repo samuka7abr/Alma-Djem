@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef } from 'react'
 import {
   CarouselContainer,
   Track,
@@ -9,19 +9,19 @@ import {
   ActionButton,
   PrevButton,
   NextButton
-} from './styles';
+} from './styles'
 
-type Direction = 'left' | 'right';
-type MouseZone = 'left' | 'center' | 'right';
+type Direction = 'left' | 'right'
+type MouseZone = 'left' | 'center' | 'right'
 
 interface SlideItem {
-  id: string;
-  src: string;
-  title: string;
-  link: string;
-  isImage: boolean;
-  hasBackground: boolean;
-  fullSize: boolean;
+  id: string
+  src: string
+  title: string
+  link: string
+  isImage: boolean
+  hasBackground: boolean
+  fullSize: boolean
 }
 
 const slides: SlideItem[] = [
@@ -52,56 +52,48 @@ const slides: SlideItem[] = [
     hasBackground: false,
     fullSize: true
   }
-];
+]
 
 export const Carousel: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState<Direction>('right');
-  const [mouseZone, setMouseZone] = useState<MouseZone>('center');
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState<Direction>('right')
+  const [mouseZone, setMouseZone] = useState<MouseZone>('center')
+  const trackRef = useRef<HTMLDivElement>(null)
 
-  const currentSlide = slides[currentIndex];
+  const currentSlide = slides[currentIndex]
 
   const handleNext = useCallback(() => {
-    setDirection('right');
-    setCurrentIndex(prev => (prev + 1) % slides.length);
-  }, []);
+    setDirection('right')
+    setCurrentIndex(prev => (prev + 1) % slides.length)
+  }, [])
 
   const handlePrev = useCallback(() => {
-    setDirection('left');
-    setCurrentIndex(prev => (prev - 1 + slides.length) % slides.length);
-  }, []);
+    setDirection('left')
+    setCurrentIndex(prev => (prev - 1 + slides.length) % slides.length)
+  }, [])
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const { clientX, currentTarget } = e;
-    const { width } = currentTarget.getBoundingClientRect();
-    
-    if (clientX < width * 0.33) {
-      setMouseZone('left');
-    } else if (clientX > width * 0.66) {
-      setMouseZone('right');
-    } else {
-      setMouseZone('center');
-    }
-  }, []);
+    const { clientX, currentTarget } = e
+    const { width } = currentTarget.getBoundingClientRect()
+    if (clientX < width * 0.23) setMouseZone('left')
+    else if (clientX > width * 0.76) setMouseZone('right')
+    else setMouseZone('center')
+  }, [])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') {
-      handlePrev();
-    } else if (e.key === 'ArrowRight') {
-      handleNext();
-    }
-  }, [handleNext, handlePrev]);
+    if (e.key === 'ArrowLeft') handlePrev()
+    else if (e.key === 'ArrowRight') handleNext()
+  }, [handleNext, handlePrev])
 
   return (
-    <CarouselContainer 
-      onMouseMove={handleMouseMove} 
+    <CarouselContainer
+      onMouseMove={handleMouseMove}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="region"
       aria-label="Galeria de conteúdo Alma Djem"
     >
-      <SlideTitle direction={direction}>
+      <SlideTitle key={currentIndex} direction={direction}>
         {currentSlide.title}
       </SlideTitle>
       <ActionButton
@@ -113,26 +105,13 @@ export const Carousel: React.FC = () => {
       >
         Veja Mais
       </ActionButton>
-
-      <PrevButton 
-        onClick={handlePrev} 
-        aria-label="Slide anterior"
-        type="button"
-      >
+      <PrevButton onClick={handlePrev} aria-label="Slide anterior" type="button">
         &#8592;
       </PrevButton>
-      <NextButton 
-        onClick={handleNext} 
-        aria-label="Próximo slide"
-        type="button"
-      >
+      <NextButton onClick={handleNext} aria-label="Próximo slide" type="button">
         &#8594;
       </NextButton>
-
-      <Track
-        ref={trackRef}
-        style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
-      >
+      <Track ref={trackRef} style={{ transform: `translateX(-${currentIndex * 100}vw)` }}>
         {slides.map((slide, index) => (
           <SlideWrapper
             key={slide.id}
@@ -140,12 +119,7 @@ export const Carousel: React.FC = () => {
             $hasBackground={slide.hasBackground}
           >
             {slide.isImage ? (
-              <ImageContent
-                src={slide.src}
-                alt={slide.title}
-                $fullSize={slide.fullSize}
-                loading="lazy"
-              />
+              <ImageContent src={slide.src} alt={slide.title} $fullSize={slide.fullSize} loading="lazy" />
             ) : (
               <VideoContent src={slide.src} autoPlay muted loop playsInline />
             )}
@@ -153,5 +127,5 @@ export const Carousel: React.FC = () => {
         ))}
       </Track>
     </CarouselContainer>
-  );
-};
+  )
+}

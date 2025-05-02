@@ -98,10 +98,10 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
   letter-spacing: 0.4rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   
-  animation: ${({ direction }) => 
-    direction === 'right' 
-      ? css`${slideFromLeft} 0.7s ease-out forwards`
-      : css`${slideFromRight} 0.7s ease-out forwards`
+  animation: ${({ direction }) =>
+    direction === 'right'
+      ? css`${slideFromRight} 0.7s ease-out forwards`
+      : css`${slideFromLeft} 0.7s ease-out forwards`
   };
   
   @media (max-width: 768px) {
@@ -120,7 +120,7 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
+  border: 1px solid white;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   color: white;
@@ -131,10 +131,10 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 10rem;
-  border-radius: 4px;
+  border-radius: 2px;
   
-  animation: ${({ direction }) => 
-    direction === 'right' 
+  animation: ${({ direction }) =>
+    direction === 'right'
       ? css`${slideFromRight} 0.7s ease-out 0.1s forwards`
       : css`${slideFromLeft} 0.7s ease-out 0.1s forwards`
   };
@@ -162,6 +162,7 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
 const NavButton = styled.button`
   position: absolute;
   top: 50%;
+  padding-bottom: 5px;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.3);
   border: none;
