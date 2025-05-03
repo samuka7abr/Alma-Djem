@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react'
+import React, { useCallback, useState, useRef, useEffect } from 'react'
 import {
   CarouselContainer,
   Track,
@@ -25,40 +25,24 @@ interface SlideItem {
 }
 
 const slides: SlideItem[] = [
-  {
-    id: 'slide-1',
-    src: '/video/v1.mp4',
-    title: 'Alma Djem feat Maneva - Aeroporto',
-    link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ',
-    isImage: false,
-    hasBackground: false,
-    fullSize: false
-  },
-  {
-    id: 'slide-2',
-    src: '/capa-album.png',
-    title: 'DVD Alma Djem Acústico em São Paulo',
-    link: 'https://open.spotify.com/intl-pt/album/2zCD0650sdKCLipMHhv1Yq?si=F2J-8QsSSgaFLbdmP_FjaQ',
-    isImage: true,
-    hasBackground: true,
-    fullSize: false
-  },
-  {
-    id: 'slide-3',
-    src: '/banda.png',
-    title: 'Conheça a história da banda Alma Djem',
-    link: 'https://www.almadjem.com.br/material/Release-Alma_Djem.pdf',
-    isImage: true,
-    hasBackground: false,
-    fullSize: true
-  }
+  { id: 'slide-1', src: '/video/v1.mp4', title: 'Alma Djem feat Maneva - Aeroporto', link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ', isImage: false, hasBackground: false, fullSize: false },
+  { id: 'slide-2', src: '/capa-album.png', title: 'DVD Alma Djem Acústico em São Paulo', link: 'https://open.spotify.com/intl-pt/album/2zCD0650sdKCLipMHhv1Yq?si=F2J-8QsSSgaFLbdmP_FjaQ', isImage: true, hasBackground: true, fullSize: false },
+  { id: 'slide-3', src: '/banda.png', title: 'Conheça a história da banda Alma Djem', link: 'https://www.almadjem.com.br/material/Release-Alma_Djem.pdf', isImage: true, hasBackground: false, fullSize: true }
 ]
 
 export const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState<Direction>('right')
   const [mouseZone, setMouseZone] = useState<MouseZone>('center')
+  const [isMobile, setIsMobile] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const currentSlide = slides[currentIndex]
 
@@ -87,41 +71,60 @@ export const Carousel: React.FC = () => {
 
   return (
     <CarouselContainer
-      onMouseMove={handleMouseMove}
+      onMouseMove={!isMobile ? handleMouseMove : undefined}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="region"
       aria-label="Galeria de conteúdo Alma Djem"
     >
-      <SlideTitle key={currentIndex} direction={direction}>
-        {currentSlide.title}
-      </SlideTitle>
-      <ActionButton
-        direction={direction}
-        href={currentSlide.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Veja mais sobre: ${currentSlide.title}`}
-      >
-        Veja Mais
-      </ActionButton>
-      <PrevButton onClick={handlePrev} aria-label="Slide anterior" type="button">
-        &#8592;
-      </PrevButton>
-      <NextButton onClick={handleNext} aria-label="Próximo slide" type="button">
-        &#8594;
-      </NextButton>
-      <Track ref={trackRef} style={{ transform: `translateX(-${currentIndex * 100}vw)` }}>
-        {slides.map((slide, index) => (
+      {!isMobile && (
+        <>
+          <SlideTitle key={currentIndex} direction={direction}>
+            {currentSlide.title}
+          </SlideTitle>
+          <ActionButton
+            direction={direction}
+            href={currentSlide.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Veja mais sobre: ${currentSlide.title}`}
+          >
+            Veja Mais
+          </ActionButton>
+          <PrevButton onClick={handlePrev} aria-label="Slide anterior" type="button">
+            &#8592;
+          </PrevButton>
+          <NextButton onClick={handleNext} aria-label="Próximo slide" type="button">
+            &#8594;
+          </NextButton>
+        </>
+      )}
+
+      <Track ref={trackRef} style={{ transform: `translateX(-${isMobile ? 0 : currentIndex * 100}vw)` }}>
+        {(isMobile ? slides.slice(0, 1) : slides).map((slide, index) => (
           <SlideWrapper
             key={slide.id}
-            $isFocused={index === currentIndex && mouseZone === 'center'}
+            $isFocused={!isMobile && index === currentIndex && mouseZone === 'center'}
             $hasBackground={slide.hasBackground}
           >
             {slide.isImage ? (
               <ImageContent src={slide.src} alt={slide.title} $fullSize={slide.fullSize} loading="lazy" />
             ) : (
               <VideoContent src={slide.src} autoPlay muted loop playsInline />
+            )}
+            {isMobile && (
+              <>
+                <SlideTitle direction={direction}>{slide.title}</SlideTitle>
+                <ActionButton
+                  direction={direction}
+                  href={slide.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Veja mais sobre: ${slide.title}`}
+                >
+                  Veja Mais
+                </ActionButton>
+              </>
             )}
           </SlideWrapper>
         ))}

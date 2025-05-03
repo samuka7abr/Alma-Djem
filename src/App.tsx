@@ -12,6 +12,9 @@ const components = {
 
 export function App(){  
   return ( 
+    <>
     <components.Header/>
+    <components.Carousel/>
+    </>
   )
 }

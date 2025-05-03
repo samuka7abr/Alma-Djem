@@ -1,37 +1,20 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components'
 
 const slideFromRight = keyframes`
-  from { 
-    opacity: 0; 
-    transform: translateX(100%) translateY(-50%);
-  }
-  to { 
-    opacity: 1; 
-    transform: translateX(-50%) translateY(-50%);
-  }
-`;
+  from { opacity: 0; transform: translateX(100%) translateY(-50%); }
+  to { opacity: 1; transform: translateX(-50%) translateY(-50%); }
+`
 
 const slideFromLeft = keyframes`
-  from {
-    opacity: 0; 
-    transform: translateX(-100%) translateY(-50%); 
-  }
-  to { 
-    opacity: 1;
-    transform: translateX(-50%) translateY(-50%); 
-  }
-`;
+  from { opacity: 0; transform: translateX(-100%) translateY(-50%); }
+  to { opacity: 1; transform: translateX(-50%) translateY(-50%); }
+`
 
 export const CarouselContainer = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  background-color: #111;
-  
-  @media (max-width: 768px) {
-    height: 70vh;
-  }
 `;
 
 export const Track = styled.div`
@@ -41,29 +24,37 @@ export const Track = styled.div`
   height: 100%;
 `;
 
-export const SlideWrapper = styled.div<{ 
-  $isFocused: boolean; 
-  $hasBackground?: boolean;
-}>`
+export const SlideWrapper = styled.div<{ $isFocused: boolean; $hasBackground?: boolean }>`
+  position: relative;
   flex: 0 0 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
+  overflow: hidden;
+  background: ${({ $hasBackground }) => ($hasBackground ? '#F18F0A' : 'transparent')};
   filter: ${({ $isFocused }) => ($isFocused ? 'none' : 'blur(12px)')};
   transition: filter 0.5s ease;
-  background: ${({ $hasBackground }) => ($hasBackground ? '#F18F0A' : 'transparent')};
+
+  @media (max-width: 768px) {
+    filter: none !important;
+  }
 `;
 
 export const VideoContent = styled.video`
-  width: 120%;
-  height: 120%;
-  object-fit: contain;
-  border-radius: 1rem;
-  background-color: #111;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
 `;
 
 export const ImageContent = styled.img<{ $fullSize?: boolean }>`
+  position: relative;
   display: block;
   border-radius: ${({ $fullSize }) => ($fullSize ? '0' : '1rem')};
   ${({ $fullSize }) =>
@@ -79,7 +70,8 @@ export const ImageContent = styled.img<{ $fullSize?: boolean }>`
           width: auto;
           height: auto;
           object-fit: contain;
-        `}
+        `
+  }
 `;
 
 export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
@@ -93,21 +85,20 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
   text-align: center;
   width: 80%;
   max-width: 800px;
-  z-index: 1;
+  z-index: 2;
   line-height: 1.2;
   letter-spacing: 0.4rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  
   animation: ${({ direction }) =>
     direction === 'right'
       ? css`${slideFromRight} 0.7s ease-out forwards`
       : css`${slideFromLeft} 0.7s ease-out forwards`
   };
-  
+
   @media (max-width: 768px) {
-    top: 25%;
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    letter-spacing: 0.2rem;
+    top: 50%;
+    font-size: clamp(3rem, 6vw, 5rem);
+    letter-spacing: 0.5rem;
   }
 `;
 
@@ -127,42 +118,39 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
   text-decoration: none;
   font-size: clamp(1rem, 3vw, 1.5rem);
   font-weight: 500;
-  z-index: 3;
+  z-index: 2;
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 10rem;
   border-radius: 2px;
-  
   animation: ${({ direction }) =>
     direction === 'right'
       ? css`${slideFromRight} 0.7s ease-out 0.1s forwards`
       : css`${slideFromLeft} 0.7s ease-out 0.1s forwards`
   };
-  
   opacity: 0;
   animation-fill-mode: forwards;
+
+  @media (max-width: 768px) {
+    top: 60%;
+    padding: 1.5rem 2rem;
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    min-width: 12rem;
+  }
   
   &:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translate(-50%, -50%) scale(1.05);
   }
-  
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-  }
-  
-  @media (max-width: 768px) {
-    top: 50%;
-    padding: 0.8rem 1.2rem;
-    min-width: 8rem;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
   }
 `;
 
 const NavButton = styled.button`
   position: absolute;
   top: 50%;
-  padding-bottom: 5px;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.3);
   border: none;
@@ -177,36 +165,22 @@ const NavButton = styled.button`
   z-index: 2;
   border-radius: 50%;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  
   &:hover {
     background: rgba(0, 0, 0, 0.5);
     transform: translateY(-50%) scale(1.1);
   }
-  
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
   }
-  
   @media (max-width: 768px) {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.5rem;
+    display: none;
   }
 `;
 
 export const PrevButton = styled(NavButton)`
   left: 2rem;
-  
-  @media (max-width: 768px) {
-    left: 1rem;
-  }
 `;
-
 export const NextButton = styled(NavButton)`
   right: 2rem;
-  
-  @media (max-width: 768px) {
-    right: 1rem;
-  }
 `;
