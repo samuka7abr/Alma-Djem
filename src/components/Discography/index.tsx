@@ -1,13 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   DiscographyContainer,
+  DiscographyTitle,
   Filters,
   FilterButton,
   AlbumGrid,
   AlbumCard,
   AlbumCover,
-  AlbumTitle
+  AlbumDetails,
+  AlbumTitle,
+  TrackList,
+  TrackItem,
+  TrackIndex,
+  MusicLink,
+  CarouselWrapper,
+  CarouselTrack,
+  CarouselSlide,
+  CarouselDots,
+  CarouselDot
 } from './styles'
+
+interface Track {
+  id: string
+  name: string
+  preview_url: string | null
+  external_urls: { spotify: string }
+}
 
 interface Album {
   id: string
@@ -15,33 +33,64 @@ interface Album {
   images: { url: string }[]
   release_date: string
   popularity: number
+  tracks: Track[]
 }
 
-const artistId = process.env.REACT_APP_SPOTIFY_ARTIST_ID!
-const token = process.env.REACT_APP_SPOTIFY_TOKEN!
+const clientId     = import.meta.env.VITE_SPOTIFY_CLIENT_ID
+const clientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
+const artistId     = import.meta.env.VITE_SPOTIFY_ARTIST_ID
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+  return isMobile
+}
 
 export const Discography: React.FC = () => {
   const [albums, setAlbums] = useState<Album[]>([])
   const [filter, setFilter] = useState<'newest' | 'oldest' | 'popular'>('newest')
+  const [current, setCurrent] = useState(0)
+  const isMobile = useIsMobile()
+  const touchStartX = useRef<number | null>(null)
+  const touchEndX = useRef<number | null>(null)
 
   useEffect(() => {
     const fetchAlbums = async () => {
-      try {
-        const res = await fetch(
-          `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&limit=50`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        )
-        if (!res.ok) {
-          console.error('Erro ao buscar álbuns:', res.status)
-          setAlbums([])
-          return
-        }
-        const data = await res.json()
-        setAlbums(Array.isArray(data.items) ? data.items : [])
-      } catch (err) {
-        console.error(err)
-        setAlbums([])
-      }
+      const creds = btoa(`${clientId}:${clientSecret}`)
+      const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${creds}`
+        },
+        body: 'grant_type=client_credentials'
+      })
+      if (!tokenRes.ok) return
+      const { access_token } = await tokenRes.json()
+
+      const albumsRes = await fetch(
+        `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&limit=20`,
+        { headers: { Authorization: `Bearer ${access_token}` } }
+      )
+      if (!albumsRes.ok) return
+      const { items } = await albumsRes.json()
+
+      const withTracks = await Promise.all(
+        items.map(async (alb: any) => {
+          const tracksRes = await fetch(
+            `https://api.spotify.com/v1/albums/${alb.id}/tracks?limit=5`,
+            { headers: { Authorization: `Bearer ${access_token}` } }
+          )
+          const { items: tracks } = await tracksRes.json()
+          return { ...alb, tracks }
+        })
+      )
+
+      setAlbums(withTracks)
     }
     fetchAlbums()
   }, [])
@@ -56,27 +105,116 @@ export const Discography: React.FC = () => {
     })
   }, [albums, filter])
 
+  // Carrossel infinito
+  const goPrev = () => setCurrent(c => (c - 1 + sorted.length) % sorted.length)
+  const goNext = () => setCurrent(c => (c + 1) % sorted.length)
+  const goTo = (idx: number) => setCurrent(idx)
+
+  // Touch events para swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const diff = touchStartX.current - touchEndX.current
+      if (diff > 50) goNext()
+      else if (diff < -50) goPrev()
+    }
+    touchStartX.current = null
+    touchEndX.current = null
+  }
+
   return (
     <DiscographyContainer>
-      <Filters>
-        <FilterButton $active={filter === 'newest'} onClick={() => setFilter('newest')}>
-          Lançamentos
-        </FilterButton>
-        <FilterButton $active={filter === 'oldest'} onClick={() => setFilter('oldest')}>
-          Mais Antigos
-        </FilterButton>
-        <FilterButton $active={filter === 'popular'} onClick={() => setFilter('popular')}>
-          Mais Escutados
-        </FilterButton>
-      </Filters>
-      <AlbumGrid>
-        {sorted.map(album => (
-          <AlbumCard key={album.id}>
-            <AlbumCover src={album.images[0]?.url} alt={album.name} />
-            <AlbumTitle>{album.name}</AlbumTitle>
-          </AlbumCard>
-        ))}
-      </AlbumGrid>
+      <DiscographyTitle>Discografia</DiscographyTitle>
+      {!isMobile && (
+        <>
+          <Filters>
+            <FilterButton $active={filter === 'newest'} onClick={() => setFilter('newest')}>
+              Lançamentos
+            </FilterButton>
+            <FilterButton $active={filter === 'oldest'} onClick={() => setFilter('oldest')}>
+              Mais Antigos
+            </FilterButton>
+            <FilterButton $active={filter === 'popular'} onClick={() => setFilter('popular')}>
+              Mais Escutados
+            </FilterButton>
+          </Filters>
+          <AlbumGrid>
+            {sorted.map(album => (
+              <AlbumCard key={album.id}>
+                <AlbumCover src={album.images[0]?.url} alt={album.name} />
+                <AlbumDetails>
+                  <AlbumTitle>{album.name}</AlbumTitle>
+                  <TrackList>
+                    {album.tracks.map((track, idx) => (
+                      <TrackItem key={track.id}>
+                        <TrackIndex className="track-index">{idx + 1}</TrackIndex>
+                        <MusicLink
+                          href={track.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {track.name}
+                        </MusicLink>
+                      </TrackItem>
+                    ))}
+                  </TrackList>
+                </AlbumDetails>
+              </AlbumCard>
+            ))}
+          </AlbumGrid>
+        </>
+      )}
+
+      {isMobile && (
+        <CarouselWrapper>
+          <CarouselTrack
+            $current={current}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {sorted.map((album, idx) => (
+              <CarouselSlide key={album.id} $active={idx === current}> 
+                <AlbumCard>
+                  <AlbumCover src={album.images[0]?.url} alt={album.name} />
+                  <AlbumDetails>
+                    <AlbumTitle>{album.name}</AlbumTitle>
+                    <TrackList>
+                      {album.tracks.map((track, tIdx) => (
+                        <TrackItem key={track.id}>
+                          <TrackIndex className="track-index">{tIdx + 1}</TrackIndex>
+                          <MusicLink
+                            href={track.external_urls.spotify}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {track.name}
+                          </MusicLink>
+                        </TrackItem>
+                      ))}
+                    </TrackList>
+                  </AlbumDetails>
+                </AlbumCard>
+              </CarouselSlide>
+            ))}
+          </CarouselTrack>
+          <CarouselDots>
+            {sorted.map((_, idx) => (
+              <CarouselDot
+                key={idx}
+                $active={idx === current}
+                onClick={() => goTo(idx)}
+                aria-label={`Ir para o álbum ${idx + 1}`}
+              />
+            ))}
+          </CarouselDots>
+        </CarouselWrapper>
+      )}
     </DiscographyContainer>
   )
 }
