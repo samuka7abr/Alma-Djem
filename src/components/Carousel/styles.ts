@@ -1,13 +1,33 @@
-import styled, { keyframes, css } from 'styled-components'
+import styled, 
+  { 
+    keyframes, 
+    css 
+  } from 'styled-components'
 
 const slideFromRight = keyframes`
-  from { opacity: 0; transform: translateX(100%) translateY(-50%); }
-  to { opacity: 1; transform: translateX(-50%) translateY(-50%); }
+  from 
+  { 
+    opacity: 0; 
+    transform: translateX(100%) translateY(-50%); 
+  }
+  to 
+  { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(-50%); 
+  }
 `
 
 const slideFromLeft = keyframes`
-  from { opacity: 0; transform: translateX(-100%) translateY(-50%); }
-  to { opacity: 1; transform: translateX(-50%) translateY(-50%); }
+  from 
+  { 
+    opacity: 0; 
+    transform: translateX(-100%) translateY(-50%); 
+  }
+  to 
+  { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(-50%); 
+  }
 `
 
 export const CarouselContainer = styled.div`
@@ -24,7 +44,10 @@ export const Track = styled.div`
   height: 100%;
 `;
 
-export const SlideWrapper = styled.div<{ $isFocused: boolean; $hasBackground?: boolean }>`
+export const SlideWrapper = styled.div<{ 
+  $isFocused: boolean; 
+  $hasBackground?: boolean 
+}>`
   position: relative;
   flex: 0 0 100vw;
   display: flex;
@@ -32,11 +55,16 @@ export const SlideWrapper = styled.div<{ $isFocused: boolean; $hasBackground?: b
   justify-content: center;
   height: 100%;
   overflow: hidden;
-  background: ${({ $hasBackground }) => ($hasBackground ? '#F18F0A' : 'transparent')};
-  filter: ${({ $isFocused }) => ($isFocused ? 'none' : 'blur(12px)')};
+  background: ${({ $hasBackground }) => 
+    ($hasBackground ? '#F18F0A' : 'transparent')
+  };
+  filter: ${({ $isFocused }) => 
+    ($isFocused ? 'none' : 'blur(12px)')
+  };
   transition: filter 0.5s ease;
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px) 
+  {
     filter: none !important;
   }
 `;
@@ -56,7 +84,9 @@ export const VideoContent = styled.video`
 export const ImageContent = styled.img<{ $fullSize?: boolean }>`
   position: relative;
   display: block;
-  border-radius: ${({ $fullSize }) => ($fullSize ? '0' : '1rem')};
+  border-radius: ${({ $fullSize }) => 
+    ($fullSize ? '0' : '1rem')
+  };
   ${({ $fullSize }) =>
     $fullSize
       ? css`
@@ -95,7 +125,8 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
       : css`${slideFromLeft} 0.7s ease-out forwards`
   };
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px) 
+  {
     top: 50%;
     font-size: clamp(3rem, 6vw, 5rem);
     letter-spacing: 0.5rem;
@@ -131,18 +162,22 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
   opacity: 0;
   animation-fill-mode: forwards;
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px) 
+  {
     top: 60%;
     padding: 1.5rem 2rem;
     font-size: clamp(1.25rem, 4vw, 2rem);
     min-width: 12rem;
   }
   
-  &:hover {
+  &:hover 
+  {
     background: rgba(255, 255, 255, 0.2);
     transform: translate(-50%, -50%) scale(1.05);
   }
-  &:focus {
+
+  &:focus 
+  {
     outline: none;
     box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
   }
@@ -165,15 +200,21 @@ const NavButton = styled.button`
   z-index: 2;
   border-radius: 50%;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  &:hover {
+
+  &:hover 
+  {
     background: rgba(0, 0, 0, 0.5);
     transform: translateY(-50%) scale(1.1);
   }
-  &:focus {
+
+  &:focus 
+  {
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
   }
-  @media (max-width: 768px) {
+
+  @media (max-width: 768px) 
+  {
     display: none;
   }
 `;
@@ -181,6 +222,7 @@ const NavButton = styled.button`
 export const PrevButton = styled(NavButton)`
   left: 2rem;
 `;
+
 export const NextButton = styled(NavButton)`
   right: 2rem;
 `;
