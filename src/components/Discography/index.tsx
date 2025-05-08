@@ -36,9 +36,17 @@ interface Album {
   tracks: Track[]
 }
 
-const clientId     = import.meta.env.VITE_SPOTIFY_CLIENT_ID
+interface SpotifyAlbum {
+  id: string
+  name: string
+  images: { url: string }[]
+  release_date: string
+  popularity: number
+}
+
+const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID
 const clientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
-const artistId     = import.meta.env.VITE_SPOTIFY_ARTIST_ID
+const artistId = import.meta.env.VITE_SPOTIFY_ARTIST_ID
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
@@ -80,7 +88,7 @@ export const Discography: React.FC = () => {
       const { items } = await albumsRes.json()
 
       const withTracks = await Promise.all(
-        items.map(async (alb: any) => {
+        items.map(async (alb: SpotifyAlbum) => {
           const tracksRes = await fetch(
             `https://api.spotify.com/v1/albums/${alb.id}/tracks?limit=5`,
             { headers: { Authorization: `Bearer ${access_token}` } }
@@ -105,12 +113,10 @@ export const Discography: React.FC = () => {
     })
   }, [albums, filter])
 
-  // Carrossel infinito
   const goPrev = () => setCurrent(c => (c - 1 + sorted.length) % sorted.length)
   const goNext = () => setCurrent(c => (c + 1) % sorted.length)
   const goTo = (idx: number) => setCurrent(idx)
 
-  // Touch events para swipe
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
   }
@@ -172,6 +178,17 @@ export const Discography: React.FC = () => {
 
       {isMobile && (
         <CarouselWrapper>
+          <Filters>
+            <FilterButton $active={filter === 'newest'} onClick={() => setFilter('newest')}>
+              Lançamentos
+            </FilterButton>
+            <FilterButton $active={filter === 'oldest'} onClick={() => setFilter('oldest')}>
+              Mais Antigos
+            </FilterButton>
+            <FilterButton $active={filter === 'popular'} onClick={() => setFilter('popular')}>
+              Mais Escutados
+            </FilterButton>
+          </Filters>
           <CarouselTrack
             $current={current}
             onTouchStart={handleTouchStart}
@@ -179,7 +196,7 @@ export const Discography: React.FC = () => {
             onTouchEnd={handleTouchEnd}
           >
             {sorted.map((album, idx) => (
-              <CarouselSlide key={album.id} $active={idx === current}> 
+              <CarouselSlide key={album.id} $active={idx === current}>
                 <AlbumCard>
                   <AlbumCover src={album.images[0]?.url} alt={album.name} />
                   <AlbumDetails>

@@ -2,10 +2,11 @@ import styled from 'styled-components'
 
 export const DiscographyContainer = styled.section`
   padding: 2rem;
-  @media (min-width: 1200px) {
-    min-height: 100vh;
-    padding: 4rem 0;
-  }
+  background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const Filters = styled.div`
@@ -13,6 +14,10 @@ export const Filters = styled.div`
   gap: 1rem;
   margin-bottom: 1.5rem;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 export const FilterButton = styled.button<{ $active: boolean }>`
@@ -30,50 +35,64 @@ export const FilterButton = styled.button<{ $active: boolean }>`
 `
 
 export const AlbumGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  padding: 0 4rem;
+  max-width: 2000px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 
-  @media (min-width: 1200px) {
-    gap: 3rem;
-    max-width: 1600px;
+  @media (max-width: 768px) {
+    display: none;
   }
 `
 
 export const AlbumCard = styled.div`
-  background: #181818;
+  position: relative;
+  width: 300px;
+  height: 300px;
   border-radius: 8px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 400px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `
 
 export const AlbumCover = styled.img`
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 `
 
 export const AlbumDetails = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
   padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  height: 100%;
+  overflow-y: auto;
+
+  ${AlbumCard}:hover & {
+    transform: translateY(0);
+  }
 `
 
 export const AlbumTitle = styled.h3`
   margin: 0 0 0.75rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #fff;
 `
 
 export const TrackList = styled.ol`
-  flex: 1;
-  overflow-y: auto;
   padding: 0;
   margin: 0;
   list-style: decimal inside;
@@ -84,12 +103,12 @@ export const TrackItem = styled.li`
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #ddd;
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
   position: relative;
-  min-height: 2.5rem;
+  min-height: 2rem;
 
   &:hover {
     background: #232323;
@@ -98,7 +117,7 @@ export const TrackItem = styled.li`
 `
 
 export const TrackIndex = styled.span`
-  width: 2rem;
+  width: 1.5rem;
   display: inline-block;
   text-align: center;
   color: #aaa;
@@ -117,6 +136,24 @@ export const MusicLink = styled.a`
     text-decoration-color: #1DB954;
   }
 `
+
+export const DiscographyTitle = styled.h2`
+  text-align: center;
+  color: #fff;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+
+  @media (min-height: 900px) {
+    font-size: 3.2rem;
+    margin-bottom: 3rem;
+  }
+  @media (min-height: 1100px) {
+    font-size: 4rem;
+    margin-bottom: 4rem;
+  }
+`
+
 export const CarouselWrapper = styled.div`
   display: none;
 
@@ -137,38 +174,21 @@ export const CarouselWrapper = styled.div`
     }
   }
 `
+
 export const CarouselTrack = styled.div<{ $current: number }>`
   display: flex;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
-  gap: 6vw;
-  /* Slide ativo centralizado, slides inativos parcialmente visíveis */
-  transform: ${({ $current }) => `translateX(calc(50% - 35vw - ${$current * 76}vw))`};
+  gap: 2rem;
+  transform: ${({ $current }) => `translateX(calc(50% - 150px - ${$current * 320}px))`};
 `
 
 export const CarouselSlide = styled.div<{ $active: boolean }>`
-  flex: 0 0 70vw;
+  flex: 0 0 300px;
   opacity: ${props => (props.$active ? 1 : 0.5)};
   transform: scale(${props => (props.$active ? 1 : 0.92)});
   transition: opacity 0.3s, transform 0.3s;
   pointer-events: ${props => (props.$active ? 'auto' : 'none')};
-`
-
-export const DiscographyTitle = styled.h2`
-  text-align: center;
-  color: #111;
-  font-size: 2.4rem;
-  margin-bottom: 2rem;
-  font-weight: 700;
-
-  @media (min-height: 900px) {
-    font-size: 3.2rem;
-    margin-bottom: 3rem;
-  }
-  @media (min-height: 1100px) {
-    font-size: 4rem;
-    margin-bottom: 4rem;
-  }
 `
 
 export const CarouselDots = styled.div`
