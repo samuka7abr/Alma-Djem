@@ -4,6 +4,7 @@ import { Carousel } from './components/Carousel';
 import { Discography } from './components/Discography';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { GlobalStyle } from './styles/global';
 
 const AppContainer = styled.div`
   overflow-x: hidden;
@@ -19,6 +20,7 @@ const Section = styled.section`
 `;
 
 export function App() {
+  const [showIntro, setShowIntro] = useState(true);
   const [showHeader, setShowHeader] = useState(false);
   const [headerTransparent, setHeaderTransparent] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -54,34 +56,36 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobile]);
 
-  const scrollToCarousel = () => {
+  const handleScrollDown = () => {
     const carouselSection = document.getElementById('carousel-section');
     if (carouselSection) {
       carouselSection.scrollIntoView({ behavior: 'smooth' });
-      
-      if (isMobile) {
-        setTimeout(() => {
-          setShowHeader(true);
-        }, 300);
-      }
+      setShowHeader(true);
+      setTimeout(() => {
+        setShowIntro(false);
+      }, 1000);
     }
   };
 
   return (
-    <AppContainer>
-      {showHeader && <Header transparent={headerTransparent} />}
-      
-      <Section>
-        <Intro onScrollDown={scrollToCarousel} />
-      </Section>
+    <>
+      <GlobalStyle />
+      <AppContainer>
+        {showIntro && (
+          <Section>
+            <Intro onScrollDown={handleScrollDown} />
+          </Section>
+        )}
+        {showHeader && <Header transparent={headerTransparent} />}
 
-      <Section id="carousel-section">
-        <Carousel />
-      </Section>
+        <Section id="carousel-section">
+          <Carousel />
+        </Section>
 
-      <Section id="discography-section">
-        <Discography />
-      </Section>
-    </AppContainer>
+        <Section id="discography-section">
+          <Discography />
+        </Section>
+      </AppContainer>
+    </>
   );
 }
