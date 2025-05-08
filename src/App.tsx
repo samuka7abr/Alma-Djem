@@ -2,7 +2,7 @@ import { Header } from './components/Header';
 import { Intro } from './components/Intro';
 import { Carousel } from './components/Carousel';
 import { Discography } from './components/Discography';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/global';
 
@@ -25,6 +25,13 @@ export function App() {
   const [headerTransparent, setHeaderTransparent] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 500);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -74,7 +81,7 @@ export function App() {
   return (
     <>
       <GlobalStyle />
-      <AppContainer>
+      <AppContainer ref={containerRef}>
         {showIntro && (
           <Section>
             <Intro onScrollDown={handleScrollDown} />
