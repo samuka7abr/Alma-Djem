@@ -15,46 +15,108 @@ import {
 } from './styles'
 import logo from '../../assets/logo.png'
 
-export function Header() {
+interface HeaderProps {
+  transparent: boolean;
+}
+
+export function Header({ transparent }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId)
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+      setIsOpen(false)
+    }
+  }
+
   return (
-    <Container>
+    <Container $transparent={transparent}>
       <Logo>
         <img src={logo} alt="Logo Alma Djem" />
       </Logo>
 
       <Actions>
-        <SocialLink href="#">HOME</SocialLink>
-        <SocialLink href="#">DISCOGRAFIA</SocialLink>
-        <SocialLink href="#">CONTATO</SocialLink>
+        <SocialLink 
+          href="#" 
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('carousel-section')
+          }}
+          $transparent={transparent}
+        >
+          HOME
+        </SocialLink>
+        <SocialLink 
+          href="#" 
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('discography-section')
+          }}
+          $transparent={transparent}
+        >
+          DISCOGRAFIA
+        </SocialLink>
+        <SocialLink 
+          href="#" 
+          $transparent={transparent}
+        >
+          CONTATO
+        </SocialLink>
       </Actions>
 
       <Actions>
         <Socials>
-          <SocialIcon href="#" target="_blank"><FaSpotify /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaYoutube /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaDeezer /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaInstagram /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaFacebook /></SocialIcon>
+          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaSpotify /></SocialIcon>
+          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaYoutube /></SocialIcon>
+          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaDeezer /></SocialIcon>
+          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaInstagram /></SocialIcon>
+          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaFacebook /></SocialIcon>
         </Socials>
       </Actions>
 
-      <MenuButton onClick={() => setIsOpen(open => !open)}>
+      <MenuButton 
+        onClick={() => setIsOpen(open => !open)}
+        $transparent={transparent}
+      >
         {isOpen ? <FiX /> : <FiMenu />}
       </MenuButton>
 
-      <MobileMenu isOpen={isOpen}>
+      <MobileMenu $isOpen={isOpen} $transparent={transparent}>
         <MobileNav>
-          <SocialLink href="#">HOME</SocialLink>
-          <SocialLink href="#">DISCOGRAFIA</SocialLink>
-          <SocialLink href="#">CONTATO</SocialLink>
+          <SocialLink 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToSection('carousel-section')
+            }}
+            $transparent={transparent}
+          >
+            HOME
+          </SocialLink>
+          <SocialLink 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToSection('discography-section')
+            }}
+            $transparent={transparent}
+          >
+            DISCOGRAFIA
+          </SocialLink>
+          <SocialLink 
+            href="#" 
+            $transparent={transparent}
+          >
+            CONTATO
+          </SocialLink>
         </MobileNav>
         <MobileSocials>
-          <SocialIcon href="#" target="_blank"><FaSpotify /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaYoutube /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaDeezer /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaInstagram /></SocialIcon>
-          <SocialIcon href="#" target="_blank"><FaFacebook /></SocialIcon>
+          <SocialIcon href="https://open.spotify.com/intl-pt/artist/4B8KF3OtiyDkloMmJ4qCm0" target="_blank" $transparent={transparent}><FaSpotify /></SocialIcon>
+          <SocialIcon href="https://www.youtube.com/channel/UCsJLOU83G24h0yZKniBY6uw" target="_blank" $transparent={transparent}><FaYoutube /></SocialIcon>
+          <SocialIcon href="https://www.deezer.com/br/artist/5891691" target="_blank" $transparent={transparent}><FaDeezer /></SocialIcon>
+          <SocialIcon href="https://www.instagram.com/almadjem/" target="_blank" $transparent={transparent}><FaInstagram /></SocialIcon>
+          <SocialIcon href="facebook.com/almadjem" target="_blank" $transparent={transparent}><FaFacebook /></SocialIcon>
         </MobileSocials>
       </MobileMenu>
     </Container>

@@ -127,9 +127,11 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 50%;
-    font-size: clamp(3rem, 6vw, 5rem);
-    letter-spacing: 0.5rem;
+    top: 35%;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: 0.2rem;
+    width: 90%;
+    padding: 0 1rem;
   }
 `;
 
@@ -164,10 +166,11 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 60%;
-    padding: 1.5rem 2rem;
-    font-size: clamp(1.25rem, 4vw, 2rem);
-    min-width: 12rem;
+    top: 50%;
+    padding: 0.8rem 1.2rem;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    min-width: 8rem;
+    margin-top: 1rem;
   }
   
   &:hover 

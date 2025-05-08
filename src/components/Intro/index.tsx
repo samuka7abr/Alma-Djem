@@ -1,7 +1,12 @@
-import { IntroContainer, LogoWrapper, Wave, ArrowWrapper } from './styles'
+import React from 'react'
+import { IntroContainer, Wave, LogoWrapper, ArrowWrapper } from './styles'
 import logo from '../../assets/logo.png'
 
-export function Intro() {
+interface IntroProps {
+	onScrollDown: () => void;
+}
+
+export function Intro({ onScrollDown }: IntroProps) {
 	return (
 		<IntroContainer>
 			<Wave color="#FFF697" height="12rem" top="5%" delay="0s" duration="11s" />
@@ -14,7 +19,7 @@ export function Intro() {
 				<img src={logo} alt="Logo Almad'Jem" />
 			</LogoWrapper>
 
-			<ArrowWrapper>
+			<ArrowWrapper onClick={onScrollDown}>
 				<span>↓</span>
 			</ArrowWrapper>
 		</IntroContainer>

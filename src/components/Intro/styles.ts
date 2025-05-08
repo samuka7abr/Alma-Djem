@@ -82,10 +82,15 @@ export const LogoWrapper = styled.div`
 	}
 `
 
-
 export const ArrowWrapper = styled.div`
 	z-index: 10;
 	margin-top: 2rem;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+
+	&:hover {
+		transform: scale(1.1);
+	}
 
 	span {
 		display: inline-block;
