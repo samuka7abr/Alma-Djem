@@ -65,7 +65,6 @@ export const Discography: React.FC = () => {
   const [filter, setFilter] = useState<'newest' | 'oldest' | 'popular'>('newest')
   const [current, setCurrent] = useState(0)
   const [showAllAlbums, setShowAllAlbums] = useState(false)
-  const [exitingIndexes, setExitingIndexes] = useState<number[]>([])
   const isMobile = useIsMobile()
   const touchStartX = useRef<number | null>(null)
   const touchEndX = useRef<number | null>(null)
@@ -157,47 +156,16 @@ export const Discography: React.FC = () => {
 
   const handleShowMore = () => {
     if (showAllAlbums) {
-      const allIndexes = sortedAlbums.map((_, index) => index)
-      const firstRowIndexes = allIndexes.slice(5)
-      const reversedIndexes = [...firstRowIndexes].reverse()
+      if (!titleRef.current) return
       
-      if (!filtersRef.current) return
-      
-      const filtersRect = filtersRef.current.getBoundingClientRect()
-      const targetPosition = filtersRect.top + window.scrollY - 50 // 50px acima dos filtros
-      const currentScroll = window.scrollY
-      const scrollAmount = currentScroll - targetPosition 
-      const totalDuration = 1000 
-      const scrollInterval = 16 
-      const totalSteps = totalDuration / scrollInterval
-      let currentStep = 0
-
-      const scrollIntervalId = setInterval(() => {
-        currentStep++
-        const progress = currentStep / totalSteps
-        const smoothProgress = Math.pow(progress, 1.5)
-        
-        window.scrollTo({
-          top: currentScroll - (scrollAmount * smoothProgress),
-          behavior: 'auto'
-        })
-
-        if (currentStep >= totalSteps) {
-          clearInterval(scrollIntervalId)
-        }
-      }, scrollInterval)
-
-      reversedIndexes.forEach((index, i) => {
-        setTimeout(() => {
-          setExitingIndexes(prev => [...prev, index])
-        }, (i * totalDuration) / reversedIndexes.length)
+      const titleRect = titleRef.current.getBoundingClientRect()
+      const targetPosition = titleRect.height + window.scrollY - 50
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'auto'
       })
-
-      setTimeout(() => {
-        setShowAllAlbums(false)
-        setExitingIndexes([])
-        clearInterval(scrollIntervalId)
-      }, totalDuration)
+      
+      setShowAllAlbums(false)
     } else {
       setShowAllAlbums(true)
     }
@@ -224,7 +192,6 @@ export const Discography: React.FC = () => {
             {sortedAlbums.slice(0, showAllAlbums ? undefined : 5).map((album, index) => (
               <AlbumCard 
                 key={album.id}
-                $isExiting={exitingIndexes.includes(index)}
                 style={{ 
                   animationDelay: `${index * 0.1}s`,
                   animationFillMode: 'forwards'

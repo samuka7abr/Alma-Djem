@@ -9,6 +9,8 @@ export const DiscographyContainer = styled.section`
   align-items: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 `
 
 export const Filters = styled.div`
@@ -53,7 +55,7 @@ export const AlbumGrid = styled.div`
   }
 `
 
-export const AlbumCard = styled.div<{ $isExiting?: boolean }>`
+export const AlbumCard = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1;
@@ -61,7 +63,7 @@ export const AlbumCard = styled.div<{ $isExiting?: boolean }>`
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   transition: transform 0.3s ease;
-  animation: ${({ $isExiting }) => $isExiting ? 'fadeOutUp' : 'fadeInUp'} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   opacity: 0;
   transform: translateY(20px);
   will-change: transform, opacity;
@@ -74,17 +76,6 @@ export const AlbumCard = styled.div<{ $isExiting?: boolean }>`
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeOutUp {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-20px);
     }
   }
 
@@ -275,30 +266,10 @@ export const SeeMoreButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   display: block;
-  position: relative;
-  overflow: hidden;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(29, 185, 84, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
-  }
 
   &:hover {
     background: #1DB954;
     color: #fff;
-
-    &::after {
-      width: 200%;
-      height: 200%;
-    }
   }
 
   &:active {
