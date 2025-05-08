@@ -7,13 +7,6 @@ interface EmailData {
 }
 
 export const sendEmail = async (data: EmailData) => {
-  // Debug temporário
-  console.log('Variáveis de ambiente:', {
-    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  });
-
   try {
     const templateParams = {
       from_name: data.name,

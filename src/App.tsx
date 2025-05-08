@@ -4,7 +4,7 @@ import { Carousel } from './components/Carousel';
 import { Discography } from './components/Discography';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/global';
 
@@ -29,7 +29,6 @@ export function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isDiscographyExpanded, setIsDiscographyExpanded] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -85,7 +84,7 @@ export function App() {
   return (
     <>
       <GlobalStyle />
-      <AppContainer ref={containerRef}>
+      <AppContainer>
         {showIntro && (
           <Section>
             <Intro onScrollDown={handleScrollDown} />
