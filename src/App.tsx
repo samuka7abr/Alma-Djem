@@ -24,6 +24,7 @@ export function App() {
   const [showHeader, setShowHeader] = useState(false);
   const [headerTransparent, setHeaderTransparent] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +44,9 @@ export function App() {
         const carouselTop = carouselSection.offsetTop;
         
         if (isMobile) {
-          setShowHeader(scrollPosition >= window.innerHeight * 0.8);
+          if (!hasScrolled) {
+            setShowHeader(scrollPosition >= window.innerHeight * 0.8);
+          }
         } else {
           setShowHeader(scrollPosition >= carouselTop - 50);
         }
@@ -54,13 +57,14 @@ export function App() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
+  }, [isMobile, hasScrolled]);
 
   const handleScrollDown = () => {
     const carouselSection = document.getElementById('carousel-section');
     if (carouselSection) {
       carouselSection.scrollIntoView({ behavior: 'smooth' });
       setShowHeader(true);
+      setHasScrolled(true);
       setTimeout(() => {
         setShowIntro(false);
       }, 1000);
