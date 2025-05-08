@@ -71,6 +71,7 @@ export const Discography: React.FC = () => {
   const touchEndX = useRef<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const filtersRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const fetchMusic = async () => {
@@ -159,8 +160,11 @@ export const Discography: React.FC = () => {
       const allIndexes = sortedAlbums.map((_, index) => index)
       const firstRowIndexes = allIndexes.slice(5)
       const reversedIndexes = [...firstRowIndexes].reverse()
-      //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const targetPosition = titleRef.current!.getBoundingClientRect().top + window.scrollY || 0
+      
+      if (!filtersRef.current) return
+      
+      const filtersRect = filtersRef.current.getBoundingClientRect()
+      const targetPosition = filtersRect.top + window.scrollY - 50 // 50px acima dos filtros
       const currentScroll = window.scrollY
       const scrollAmount = currentScroll - targetPosition 
       const totalDuration = 1000 
@@ -204,7 +208,7 @@ export const Discography: React.FC = () => {
       <DiscographyTitle ref={titleRef}>Discografia</DiscographyTitle>
       {!isMobile && (
         <>
-          <Filters>
+          <Filters ref={filtersRef}>
             <FilterButton $active={filter === 'newest'} onClick={() => setFilter('newest')}>
               Lançamentos
             </FilterButton>
