@@ -194,6 +194,7 @@ const NavButton = styled.button`
   border: none;
   color: white;
   font-size: 2rem;
+  padding-bottom: 0.5rem;
   width: 3rem;
   height: 3rem;
   display: flex;
