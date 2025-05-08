@@ -18,7 +18,8 @@ import {
   NextButton,
   LoadingContainer,
   LoadingSpinner,
-  VideoWrapper
+  VideoWrapper,
+  VideoPlaceholder
 } from './styles'
 
 type Direction = 'left' | 'right'
@@ -76,6 +77,8 @@ export const Carousel: React.FC = () => {
   
   const [isVideoLoading, setIsVideoLoading] = useState(true)
   
+  const [isVideoVisible, setIsVideoVisible] = useState(false)
+  
   const trackRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -131,6 +134,9 @@ export const Carousel: React.FC = () => {
 
   const handleVideoLoad = () => {
     setIsVideoLoading(false)
+    setTimeout(() => {
+      setIsVideoVisible(true)
+    }, 2000)
   }
 
   useEffect(() => {
@@ -140,6 +146,11 @@ export const Carousel: React.FC = () => {
         videoRef.current?.removeEventListener('loadeddata', handleVideoLoad)
       }
     }
+  }, [currentIndex])
+
+  useEffect(() => {
+    setIsVideoLoading(true)
+    setIsVideoVisible(false)
   }, [currentIndex])
 
   return (
@@ -213,6 +224,11 @@ export const Carousel: React.FC = () => {
                     <LoadingSpinner />
                   </LoadingContainer>
                 )}
+                <VideoPlaceholder 
+                  src="/video-placeholder.png" 
+                  alt="Carregando vídeo"
+                  className={isVideoVisible ? 'hidden' : ''}
+                />
                 <VideoContent 
                   ref={videoRef}
                   src={slide.src} 
@@ -220,6 +236,7 @@ export const Carousel: React.FC = () => {
                   muted 
                   loop 
                   playsInline 
+                  className={isVideoVisible ? 'visible' : ''}
                 />
               </VideoWrapper>
             )}
