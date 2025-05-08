@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { FaSpotify, FaYoutube, FaDeezer, FaInstagram, FaFacebook } from 'react-icons/fa'
 import { FiMenu, FiX } from 'react-icons/fi'
 import {
@@ -13,6 +12,7 @@ import {
   MobileNav,
   MobileSocials
 } from './styles'
+import { useState } from 'react'
 import logo from '../../assets/logo.png'
 
 interface HeaderProps {

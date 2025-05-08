@@ -1,4 +1,3 @@
-import React from 'react'
 import { IntroContainer, Wave, LogoWrapper, ArrowWrapper } from './styles'
 import logo from '../../assets/logo.png'
 
