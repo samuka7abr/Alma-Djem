@@ -230,3 +230,36 @@ export const PrevButton = styled(NavButton)`
 export const NextButton = styled(NavButton)`
   right: 2rem;
 `;
+
+export const LoadingContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+`;
+
+export const LoadingSpinner = styled.div`
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #F0048A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+export const VideoWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;

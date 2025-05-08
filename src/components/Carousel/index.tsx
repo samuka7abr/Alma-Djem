@@ -15,7 +15,10 @@ import {
   SlideTitle,
   ActionButton,
   PrevButton,
-  NextButton
+  NextButton,
+  LoadingContainer,
+  LoadingSpinner,
+  VideoWrapper
 } from './styles'
 
 type Direction = 'left' | 'right'
@@ -71,7 +74,10 @@ export const Carousel: React.FC = () => {
   
   const [isMobile, setIsMobile] = useState(false)
   
+  const [isVideoLoading, setIsVideoLoading] = useState(true)
+  
   const trackRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const handleResize = () => 
@@ -122,6 +128,19 @@ export const Carousel: React.FC = () => {
     else if (e.key === 'ArrowRight') 
       handleNext()
   }, [handleNext, handlePrev])
+
+  const handleVideoLoad = () => {
+    setIsVideoLoading(false)
+  }
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.addEventListener('loadeddata', handleVideoLoad)
+      return () => {
+        videoRef.current?.removeEventListener('loadeddata', handleVideoLoad)
+      }
+    }
+  }, [currentIndex])
 
   return (
     <CarouselContainer
@@ -188,13 +207,21 @@ export const Carousel: React.FC = () => {
                 loading="lazy" 
               />
             ) : (
-              <VideoContent 
-                src={slide.src} 
-                autoPlay 
-                muted 
-                loop 
-                playsInline 
-              />
+              <VideoWrapper>
+                {isVideoLoading && (
+                  <LoadingContainer>
+                    <LoadingSpinner />
+                  </LoadingContainer>
+                )}
+                <VideoContent 
+                  ref={videoRef}
+                  src={slide.src} 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline 
+                />
+              </VideoWrapper>
             )}
             
             {isMobile && (
