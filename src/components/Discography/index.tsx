@@ -45,6 +45,10 @@ interface SpotifyAlbum {
   popularity: number
 }
 
+interface DiscographyProps {
+  onExpandChange: (expanded: boolean) => void;
+}
+
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID
 const clientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
 const artistId = import.meta.env.VITE_SPOTIFY_ARTIST_ID
@@ -59,7 +63,7 @@ function useIsMobile() {
   return isMobile
 }
 
-export const Discography: React.FC = () => {
+export const Discography: React.FC<DiscographyProps> = ({ onExpandChange }) => {
   const [albums, setAlbums] = useState<Album[]>([])
   const [singles, setSingles] = useState<Album[]>([])
   const [filter, setFilter] = useState<'newest' | 'oldest' | 'popular'>('newest')
@@ -171,6 +175,10 @@ export const Discography: React.FC = () => {
     }
   }
 
+  const handleAlbumHover = (isHovered: boolean) => {
+    onExpandChange(isHovered);
+  };
+
   return (
     <DiscographyContainer ref={containerRef}>
       <DiscographyTitle ref={titleRef}>Discografia</DiscographyTitle>
@@ -196,6 +204,8 @@ export const Discography: React.FC = () => {
                   animationDelay: `${index * 0.1}s`,
                   animationFillMode: 'forwards'
                 }}
+                onMouseEnter={() => handleAlbumHover(true)}
+                onMouseLeave={() => handleAlbumHover(false)}
               >
                 <AlbumCover src={album.images[0]?.url} alt={album.name} />
                 <AlbumDetails>
@@ -248,7 +258,10 @@ export const Discography: React.FC = () => {
           >
             {sortedAlbums.map((album, idx) => (
               <CarouselSlide key={album.id} $active={idx === current}>
-                <AlbumCard>
+                <AlbumCard
+                  onMouseEnter={() => handleAlbumHover(true)}
+                  onMouseLeave={() => handleAlbumHover(false)}
+                >
                   <AlbumCover src={album.images[0]?.url} alt={album.name} />
                   <AlbumDetails>
                     <AlbumTitle>{album.name}</AlbumTitle>

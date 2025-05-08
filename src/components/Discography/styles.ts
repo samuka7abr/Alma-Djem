@@ -196,7 +196,6 @@ export const CarouselWrapper = styled.div`
     }
   }
 `
-
 export const CarouselTrack = styled.div<{ $current: number }>`
   display: flex;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -204,7 +203,6 @@ export const CarouselTrack = styled.div<{ $current: number }>`
   gap: 2rem;
   transform: ${({ $current }) => `translateX(calc(50% - 150px - ${$current * 320}px))`};
 `
-
 export const CarouselSlide = styled.div<{ $active: boolean }>`
   flex: 0 0 300px;
   opacity: ${props => (props.$active ? 1 : 0.5)};
@@ -276,3 +274,5 @@ export const SeeMoreButton = styled.button`
     transform: scale(0.95);
   }
 `
+
+

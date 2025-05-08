@@ -2,6 +2,7 @@ import { Header } from './components/Header';
 import { Intro } from './components/Intro';
 import { Carousel } from './components/Carousel';
 import { Discography } from './components/Discography';
+import ContactForm from './components/ContactForm';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/global';
@@ -10,11 +11,12 @@ const AppContainer = styled.div`
   overflow-x: hidden;
   width: 100%;
   position: relative;
+  min-height: 100vh;
 `;
 
-const Section = styled.section`
+const Section = styled.section<{ $isExpanded?: boolean }>`
   scroll-snap-align: start;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   position: relative;
 `;
@@ -25,6 +27,7 @@ export function App() {
   const [headerTransparent, setHeaderTransparent] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [isDiscographyExpanded, setIsDiscographyExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,8 +96,12 @@ export function App() {
           <Carousel />
         </Section>
 
-        <Section id="discography-section">
-          <Discography />
+        <Section id="discography-section" $isExpanded={isDiscographyExpanded}>
+          <Discography onExpandChange={setIsDiscographyExpanded} />
+        </Section>
+
+        <Section id="contact-section">
+          <ContactForm />
         </Section>
       </AppContainer>
     </>
