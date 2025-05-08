@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   IntroContainer,
   Content,
@@ -12,10 +13,10 @@ import {
 } from './styles'
 
 import logo from '../../assets/logo.png'
-import wave1 from '../../assets/wave.svg'      // azul
-import wave2 from '../../assets/wave2.svg'     // ciano
-import wave3 from '../../assets/wave3.svg'     // rosa
-import wave4 from '../../assets/wave4.svg'     // laranja
+import wave1 from '../../assets/wave.svg'
+import wave2 from '../../assets/wave2.svg'
+import wave3 from '../../assets/wave3.svg'
+import wave4 from '../../assets/wave4.svg'
 
 export function Intro2Test() {
   return (
@@ -30,16 +31,9 @@ export function Intro2Test() {
         <img src={logo} alt="Logo grande" />
       </SideLogo>
 
-      {/* laranja - fundo */}
       <SvgWave src={wave4} style={{ zIndex: 1 }} />
-
-      {/* azul */}
       <SvgWaveTop src={wave1} style={{ zIndex: 2 }} />
-
-      {/* rosa */}
       <SvgWaveMid src={wave3} style={{ zIndex: 3 }} />
-
-      {/* ciano - frente */}
       <SvgWaveFront src={wave2} style={{ zIndex: 4 }} />
     </IntroContainer>
   )

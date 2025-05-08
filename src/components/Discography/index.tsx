@@ -86,7 +86,6 @@ export const Discography: React.FC = () => {
       if (!tokenRes.ok) return
       const { access_token } = await tokenRes.json()
 
-      // Buscar álbuns
       const albumsRes = await fetch(
         `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&limit=20`,
         { headers: { Authorization: `Bearer ${access_token}` } }
@@ -94,7 +93,6 @@ export const Discography: React.FC = () => {
       if (!albumsRes.ok) return
       const { items: albumItems } = await albumsRes.json()
 
-      // Buscar singles
       const singlesRes = await fetch(
         `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=single&limit=20`,
         { headers: { Authorization: `Bearer ${access_token}` } }
@@ -170,15 +168,14 @@ export const Discography: React.FC = () => {
       const totalSteps = totalDuration / scrollInterval
       let currentStep = 0
 
-      // Inicia o scroll suave
       const scrollIntervalId = setInterval(() => {
         currentStep++
         const progress = currentStep / totalSteps
-        const smoothProgress = Math.pow(progress, 1.5) // Curva de progressão suave
+        const smoothProgress = Math.pow(progress, 1.5)
         
         window.scrollTo({
           top: currentScroll - (scrollAmount * smoothProgress),
-          behavior: 'auto' // Usando 'auto' para ter mais controle sobre o scroll
+          behavior: 'auto'
         })
 
         if (currentStep >= totalSteps) {
@@ -186,14 +183,12 @@ export const Discography: React.FC = () => {
         }
       }, scrollInterval)
 
-      // Anima os álbuns
       reversedIndexes.forEach((index, i) => {
         setTimeout(() => {
           setExitingIndexes(prev => [...prev, index])
         }, (i * totalDuration) / reversedIndexes.length)
       })
 
-      // Limpa tudo após a animação
       setTimeout(() => {
         setShowAllAlbums(false)
         setExitingIndexes([])
