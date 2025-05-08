@@ -7,6 +7,8 @@ export const DiscographyContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 `
 
 export const Filters = styled.div`
@@ -35,27 +37,56 @@ export const FilterButton = styled.button<{ $active: boolean }>`
 `
 
 export const AlbumGrid = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   padding: 0 4rem;
   max-width: 2000px;
   width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 
   @media (max-width: 768px) {
     display: none;
   }
 `
 
-export const AlbumCard = styled.div`
+export const AlbumCard = styled.div<{ $isExiting?: boolean }>`
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   transition: transform 0.3s ease;
+  animation: ${({ $isExiting }) => $isExiting ? 'fadeOutUp' : 'fadeInUp'} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeOutUp {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -208,4 +239,46 @@ export const CarouselDot = styled.button<{ $active: boolean }>`
   transition: background 0.2s, opacity 0.2s;
   cursor: pointer;
   padding: 0;
+`
+
+export const SeeMoreButton = styled.button`
+  margin: 3rem 0;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border: 2px solid #1DB954;
+  border-radius: 25px;
+  background: transparent;
+  color: #1DB954;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(29, 185, 84, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+
+  &:hover {
+    background: #1DB954;
+    color: #fff;
+
+    &::after {
+      width: 200%;
+      height: 200%;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `

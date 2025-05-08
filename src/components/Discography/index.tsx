@@ -17,7 +17,8 @@ import {
   CarouselTrack,
   CarouselSlide,
   CarouselDots,
-  CarouselDot
+  CarouselDot,
+  SeeMoreButton
 } from './styles'
 
 interface Track {
@@ -60,14 +61,19 @@ function useIsMobile() {
 
 export const Discography: React.FC = () => {
   const [albums, setAlbums] = useState<Album[]>([])
+  const [singles, setSingles] = useState<Album[]>([])
   const [filter, setFilter] = useState<'newest' | 'oldest' | 'popular'>('newest')
   const [current, setCurrent] = useState(0)
+  const [showAllAlbums, setShowAllAlbums] = useState(false)
+  const [exitingIndexes, setExitingIndexes] = useState<number[]>([])
   const isMobile = useIsMobile()
   const touchStartX = useRef<number | null>(null)
   const touchEndX = useRef<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
-    const fetchAlbums = async () => {
+    const fetchMusic = async () => {
       const creds = btoa(`${clientId}:${clientSecret}`)
       const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
@@ -80,41 +86,58 @@ export const Discography: React.FC = () => {
       if (!tokenRes.ok) return
       const { access_token } = await tokenRes.json()
 
+      // Buscar álbuns
       const albumsRes = await fetch(
         `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album&limit=20`,
         { headers: { Authorization: `Bearer ${access_token}` } }
       )
       if (!albumsRes.ok) return
-      const { items } = await albumsRes.json()
+      const { items: albumItems } = await albumsRes.json()
 
-      const withTracks = await Promise.all(
-        items.map(async (alb: SpotifyAlbum) => {
-          const tracksRes = await fetch(
-            `https://api.spotify.com/v1/albums/${alb.id}/tracks?limit=5`,
-            { headers: { Authorization: `Bearer ${access_token}` } }
-          )
-          const { items: tracks } = await tracksRes.json()
-          return { ...alb, tracks }
-        })
+      // Buscar singles
+      const singlesRes = await fetch(
+        `https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=single&limit=20`,
+        { headers: { Authorization: `Bearer ${access_token}` } }
       )
+      if (!singlesRes.ok) return
+      const { items: singleItems } = await singlesRes.json()
 
-      setAlbums(withTracks)
+      const fetchTracks = async (items: SpotifyAlbum[]) => {
+        return await Promise.all(
+          items.map(async (item) => {
+            const tracksRes = await fetch(
+              `https://api.spotify.com/v1/albums/${item.id}/tracks?limit=5`,
+              { headers: { Authorization: `Bearer ${access_token}` } }
+            )
+            const { items: tracks } = await tracksRes.json()
+            return { ...item, tracks }
+          })
+        )
+      }
+
+      const [albumsWithTracks, singlesWithTracks] = await Promise.all([
+        fetchTracks(albumItems),
+        fetchTracks(singleItems)
+      ])
+
+      setAlbums(albumsWithTracks)
+      setSingles(singlesWithTracks)
     }
-    fetchAlbums()
+    fetchMusic()
   }, [])
 
-  const sorted = React.useMemo(() => {
-    return [...albums].sort((a, b) => {
+  const sortedAlbums = React.useMemo(() => {
+    return [...albums, ...singles].sort((a, b) => {
       if (filter === 'oldest')
         return new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
       if (filter === 'newest')
         return new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
       return b.popularity - a.popularity
     })
-  }, [albums, filter])
+  }, [albums, singles, filter])
 
-  const goPrev = () => setCurrent(c => (c - 1 + sorted.length) % sorted.length)
-  const goNext = () => setCurrent(c => (c + 1) % sorted.length)
+  const goPrev = () => setCurrent(c => (c - 1 + sortedAlbums.length) % sortedAlbums.length)
+  const goNext = () => setCurrent(c => (c + 1) % sortedAlbums.length)
   const goTo = (idx: number) => setCurrent(idx)
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -133,9 +156,57 @@ export const Discography: React.FC = () => {
     touchEndX.current = null
   }
 
+  const handleShowMore = () => {
+    if (showAllAlbums) {
+      const allIndexes = sortedAlbums.map((_, index) => index)
+      const firstRowIndexes = allIndexes.slice(5)
+      const reversedIndexes = [...firstRowIndexes].reverse()
+      
+      const targetPosition = titleRef.current?.getBoundingClientRect().top + window.scrollY || 0
+      const currentScroll = window.scrollY
+      const scrollAmount = currentScroll - targetPosition 
+      const totalDuration = 1000 
+      const scrollInterval = 16 
+      const totalSteps = totalDuration / scrollInterval
+      let currentStep = 0
+
+      // Inicia o scroll suave
+      const scrollIntervalId = setInterval(() => {
+        currentStep++
+        const progress = currentStep / totalSteps
+        const smoothProgress = Math.pow(progress, 1.5) // Curva de progressão suave
+        
+        window.scrollTo({
+          top: currentScroll - (scrollAmount * smoothProgress),
+          behavior: 'auto' // Usando 'auto' para ter mais controle sobre o scroll
+        })
+
+        if (currentStep >= totalSteps) {
+          clearInterval(scrollIntervalId)
+        }
+      }, scrollInterval)
+
+      // Anima os álbuns
+      reversedIndexes.forEach((index, i) => {
+        setTimeout(() => {
+          setExitingIndexes(prev => [...prev, index])
+        }, (i * totalDuration) / reversedIndexes.length)
+      })
+
+      // Limpa tudo após a animação
+      setTimeout(() => {
+        setShowAllAlbums(false)
+        setExitingIndexes([])
+        clearInterval(scrollIntervalId)
+      }, totalDuration)
+    } else {
+      setShowAllAlbums(true)
+    }
+  }
+
   return (
-    <DiscographyContainer>
-      <DiscographyTitle>Discografia</DiscographyTitle>
+    <DiscographyContainer ref={containerRef}>
+      <DiscographyTitle ref={titleRef}>Discografia</DiscographyTitle>
       {!isMobile && (
         <>
           <Filters>
@@ -149,9 +220,17 @@ export const Discography: React.FC = () => {
               Mais Escutados
             </FilterButton>
           </Filters>
+          
           <AlbumGrid>
-            {sorted.map(album => (
-              <AlbumCard key={album.id}>
+            {sortedAlbums.slice(0, showAllAlbums ? undefined : 5).map((album, index) => (
+              <AlbumCard 
+                key={album.id}
+                $isExiting={exitingIndexes.includes(index)}
+                style={{ 
+                  animationDelay: `${index * 0.1}s`,
+                  animationFillMode: 'forwards'
+                }}
+              >
                 <AlbumCover src={album.images[0]?.url} alt={album.name} />
                 <AlbumDetails>
                   <AlbumTitle>{album.name}</AlbumTitle>
@@ -173,6 +252,12 @@ export const Discography: React.FC = () => {
               </AlbumCard>
             ))}
           </AlbumGrid>
+          
+          {sortedAlbums.length > 5 && (
+            <SeeMoreButton onClick={handleShowMore}>
+              {showAllAlbums ? 'Ver Menos' : 'Ver Mais'}
+            </SeeMoreButton>
+          )}
         </>
       )}
 
@@ -195,7 +280,7 @@ export const Discography: React.FC = () => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {sorted.map((album, idx) => (
+            {sortedAlbums.map((album, idx) => (
               <CarouselSlide key={album.id} $active={idx === current}>
                 <AlbumCard>
                   <AlbumCover src={album.images[0]?.url} alt={album.name} />
@@ -221,10 +306,10 @@ export const Discography: React.FC = () => {
             ))}
           </CarouselTrack>
           <CarouselDots>
-            {sorted.map((_, idx) => (
+            {sortedAlbums.slice(0, 5).map((_, idx) => (
               <CarouselDot
                 key={idx}
-                $active={idx === current}
+                $active={idx === current % 5}
                 onClick={() => goTo(idx)}
                 aria-label={`Ir para o álbum ${idx + 1}`}
               />
