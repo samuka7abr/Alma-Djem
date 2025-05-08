@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const DiscographyContainer = styled.section`
   padding: 2rem;
@@ -197,11 +197,11 @@ export const CarouselWrapper = styled.div`
     width: 100%;
     overflow: hidden;
     position: relative;
-    padding: 2rem 0;
+    padding: 2rem 0 30px;
 
     @media (min-height: 900px) {
       justify-content: center;
-      padding: 0;
+      padding: 0 0 30px;
     }
   }
 `
@@ -230,15 +230,38 @@ export const CarouselDots = styled.div`
 `
 
 export const CarouselDot = styled.button<{ $active: boolean }>`
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
+  background: ${props => props.$active ? '#fff' : 'rgba(255, 255, 255, 0.3)'};
   border: none;
-  background: ${({ $active }) => ($active ? '#1DB954' : '#444')};
-  opacity: ${({ $active }) => ($active ? 1 : 0.5)};
-  transition: background 0.2s, opacity 0.2s;
   cursor: pointer;
+  transition: all 0.3s ease;
   padding: 0;
+  margin: 0 4px;
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  ${props => props.$active && css`
+    animation: pulse 0.5s ease-in-out;
+  `}
+
+  &:hover {
+    background: #fff;
+  }
 `
 
 export const SeeMoreButton = styled.button`
