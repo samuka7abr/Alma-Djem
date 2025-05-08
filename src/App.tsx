@@ -3,6 +3,7 @@ import { Intro } from './components/Intro';
 import { Carousel } from './components/Carousel';
 import { Discography } from './components/Discography';
 import ContactForm from './components/ContactForm';
+import Footer from './components/Footer';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/global';
@@ -103,6 +104,8 @@ export function App() {
         <Section id="contact-section">
           <ContactForm />
         </Section>
+
+        <Footer />
       </AppContainer>
     </>
   );
