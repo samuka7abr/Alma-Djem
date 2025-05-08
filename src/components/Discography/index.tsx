@@ -159,8 +159,8 @@ export const Discography: React.FC = () => {
       const allIndexes = sortedAlbums.map((_, index) => index)
       const firstRowIndexes = allIndexes.slice(5)
       const reversedIndexes = [...firstRowIndexes].reverse()
-      
-      const targetPosition = titleRef.current?.getBoundingClientRect().top + window.scrollY || 0
+      //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const targetPosition = titleRef.current!.getBoundingClientRect().top + window.scrollY || 0
       const currentScroll = window.scrollY
       const scrollAmount = currentScroll - targetPosition 
       const totalDuration = 1000 
