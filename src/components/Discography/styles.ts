@@ -205,6 +205,7 @@ export const CarouselTrack = styled.div<{ $current: number }>`
 `
 export const CarouselSlide = styled.div<{ $active: boolean }>`
   flex: 0 0 300px;
+  margin-top: 8rem;
   opacity: ${props => (props.$active ? 1 : 0.5)};
   transform: scale(${props => (props.$active ? 1 : 0.92)});
   transition: opacity 0.3s, transform 0.3s;

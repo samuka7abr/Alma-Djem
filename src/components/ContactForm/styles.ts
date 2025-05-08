@@ -129,4 +129,26 @@ export const SubmitButton = styled.button`
     padding: 1rem 1.5rem;
     font-size: 1.1rem;
   }
+`;
+
+export const StatusMessage = styled.div<{ $type: 'success' | 'error' | null }>`
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  text-align: center;
+  background-color: ${({ $type }) => 
+    $type === 'success' ? 'rgba(29, 185, 84, 0.1)' : 
+    $type === 'error' ? 'rgba(255, 0, 0, 0.1)' : 
+    'transparent'
+  };
+  color: ${({ $type }) => 
+    $type === 'success' ? '#1DB954' : 
+    $type === 'error' ? '#ff0000' : 
+    'inherit'
+  };
+  border: 1px solid ${({ $type }) => 
+    $type === 'success' ? '#1DB954' : 
+    $type === 'error' ? '#ff0000' : 
+    'transparent'
+  };
 `; 
