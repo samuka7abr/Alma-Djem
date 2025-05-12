@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const DiscographyContainer = styled.section`
   padding: 2rem;
@@ -18,9 +18,12 @@ export const Filters = styled.div`
   gap: 1rem;
   margin-bottom: 1.5rem;
   justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 1rem;
 
   @media (max-width: 768px) {
-    display: none;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
   }
 `
 
@@ -36,6 +39,11 @@ export const FilterButton = styled.button<{ $active: boolean }>`
   &:hover {
     background: ${({ $active }) => ($active ? '#1ed760' : 'rgba(255,255,255,0.2)')};
   }
+
+  @media (max-width: 768px) {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+  }
 `
 
 export const AlbumGrid = styled.div`
@@ -50,8 +58,20 @@ export const AlbumGrid = styled.div`
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 3rem;
+  }
+
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 2rem;
+  }
+
   @media (max-width: 768px) {
-    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
   }
 `
 
@@ -80,7 +100,13 @@ export const AlbumCard = styled.div`
   }
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `
 
@@ -106,12 +132,21 @@ export const AlbumDetails = styled.div`
   ${AlbumCard}:hover & {
     transform: translateY(0);
   }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+  }
 `
 
 export const AlbumTitle = styled.h3`
   margin: 0 0 0.75rem;
   font-size: 1.5rem;
   color: #fff;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
 `
 
 export const TrackList = styled.ol`
@@ -136,6 +171,12 @@ export const TrackItem = styled.li`
     background: #232323;
     color: #fff;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
 `
 
 export const TrackIndex = styled.span`
@@ -145,6 +186,10 @@ export const TrackIndex = styled.span`
   color: #aaa;
   opacity: 1;
   transition: opacity 0.2s;
+
+  @media (max-width: 768px) {
+    width: 1.2rem;
+  }
 `
 
 export const MusicLink = styled.a`
@@ -166,6 +211,11 @@ export const DiscographyTitle = styled.h2`
   margin-bottom: 2rem;
   font-weight: 700;
 
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
   @media (min-height: 900px) {
     font-size: 3.2rem;
     margin-bottom: 3rem;
@@ -176,103 +226,26 @@ export const DiscographyTitle = styled.h2`
   }
 `
 
-export const CarouselWrapper = styled.div`
-  display: none;
-
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding: 2rem 0 30px;
-
-    @media (min-height: 900px) {
-      justify-content: center;
-      padding: 0 0 30px;
-    }
-  }
-`
-export const CarouselTrack = styled.div<{ $current: number }>`
-  display: flex;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-  gap: 2rem;
-  transform: ${({ $current }) => `translateX(calc(50% - 150px - ${$current * 320}px))`};
-`
-export const CarouselSlide = styled.div<{ $active: boolean }>`
-  flex: 0 0 300px;
-  margin-top: 8rem;
-  opacity: ${props => (props.$active ? 1 : 0.5)};
-  transform: scale(${props => (props.$active ? 1 : 0.92)});
-  transition: opacity 0.3s, transform 0.3s;
-  pointer-events: ${props => (props.$active ? 'auto' : 'none')};
-`
-
-export const CarouselDots = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 0.7rem;
-  margin-top: 1.5rem;
-`
-
-export const CarouselDot = styled.button<{ $active: boolean }>`
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: ${props => props.$active ? '#fff' : 'rgba(255, 255, 255, 0.3)'};
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-  margin: 0 4px;
-
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.5);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  ${props => props.$active && css`
-    animation: pulse 0.5s ease-in-out;
-  `}
-
-  &:hover {
-    background: #fff;
-  }
-`
-
 export const SeeMoreButton = styled.button`
-  margin: 3rem 0;
+  margin-top: 2rem;
   padding: 0.75rem 2rem;
   font-size: 1.1rem;
-  border: 2px solid #1DB954;
+  border: none;
   border-radius: 25px;
-  background: transparent;
-  color: #1DB954;
+  background: #1DB954;
+  color: #fff;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: block;
+  transition: background 0.3s, transform 0.2s;
 
   &:hover {
-    background: #1DB954;
-    color: #fff;
+    background: #1ed760;
+    transform: scale(1.05);
   }
 
-  &:active {
-    transform: scale(0.95);
+  @media (max-width: 768px) {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
   }
 `
 
