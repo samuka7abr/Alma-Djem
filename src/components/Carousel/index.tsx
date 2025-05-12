@@ -81,6 +81,7 @@ export const Carousel: React.FC = () => {
   
   const trackRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const videoLoadedRef = useRef(false)
 
   useEffect(() => {
     const handleResize = () => 
@@ -134,23 +135,22 @@ export const Carousel: React.FC = () => {
 
   const handleVideoLoad = () => {
     setIsVideoLoading(false)
-    setTimeout(() => {
-      setIsVideoVisible(true)
-    }, 0)
+    setIsVideoVisible(true)
+    videoLoadedRef.current = true
   }
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.addEventListener('loadeddata', handleVideoLoad)
-      return () => {
-        videoRef.current?.removeEventListener('loadeddata', handleVideoLoad)
+      if (currentIndex === 0 && videoLoadedRef.current) {
+        setIsVideoLoading(false)
+        setIsVideoVisible(true)
+      } else {
+        videoRef.current.addEventListener('loadeddata', handleVideoLoad)
+        return () => {
+          videoRef.current?.removeEventListener('loadeddata', handleVideoLoad)
+        }
       }
     }
-  }, [currentIndex])
-
-  useEffect(() => {
-    setIsVideoLoading(true)
-    setIsVideoVisible(false)
   }, [currentIndex])
 
   return (
@@ -219,7 +219,7 @@ export const Carousel: React.FC = () => {
               />
             ) : (
               <VideoWrapper>
-                {isVideoLoading && (
+                {isVideoLoading && !videoLoadedRef.current && (
                   <LoadingContainer>
                     <LoadingSpinner />
                   </LoadingContainer>
