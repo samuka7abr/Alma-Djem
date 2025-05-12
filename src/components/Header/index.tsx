@@ -59,6 +59,10 @@ export function Header({ transparent }: HeaderProps) {
         </SocialLink>
         <SocialLink 
           href="#" 
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('contact-section')
+          }}
           $transparent={transparent}
         >
           CONTATO
@@ -67,11 +71,11 @@ export function Header({ transparent }: HeaderProps) {
 
       <Actions>
         <Socials>
-          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaSpotify /></SocialIcon>
-          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaYoutube /></SocialIcon>
-          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaDeezer /></SocialIcon>
-          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaInstagram /></SocialIcon>
-          <SocialIcon href="#" target="_blank" $transparent={transparent}><FaFacebook /></SocialIcon>
+          <SocialIcon href="https://open.spotify.com/intl-pt/artist/4B8KF3OtiyDkloMmJ4qCm0" target="_blank" $transparent={transparent}><FaSpotify /></SocialIcon>
+          <SocialIcon href="https://www.youtube.com/channel/UCsJLOU83G24h0yZKniBY6uw" target="_blank" $transparent={transparent}><FaYoutube /></SocialIcon>
+          <SocialIcon href="https://www.deezer.com/br/artist/5891691" target="_blank" $transparent={transparent}><FaDeezer /></SocialIcon>
+          <SocialIcon href="https://www.instagram.com/almadjem/" target="_blank" $transparent={transparent}><FaInstagram /></SocialIcon>
+          <SocialIcon href="https://www.facebook.com/almadjem" target="_blank" $transparent={transparent}><FaFacebook /></SocialIcon>
         </Socials>
       </Actions>
 
@@ -106,6 +110,10 @@ export function Header({ transparent }: HeaderProps) {
           </SocialLink>
           <SocialLink 
             href="#" 
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToSection('contact-section')
+            }}
             $transparent={transparent}
           >
             CONTATO
