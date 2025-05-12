@@ -39,7 +39,7 @@ interface SlideItem {
 const slides: SlideItem[] = [
   { 
     id: 'slide-1', 
-    src: '/video/v1.mp4', 
+    src: 'https://aqyjnfjjhooqvxvcffou.supabase.co/storage/v1/object/public/videos/v1_first_half_first_half.mp4', 
     title: 'Alma Djem feat Maneva - Aeroporto', 
     link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ', 
     isImage: false, 
@@ -136,7 +136,7 @@ export const Carousel: React.FC = () => {
     setIsVideoLoading(false)
     setTimeout(() => {
       setIsVideoVisible(true)
-    }, 2000)
+    }, 0)
   }
 
   useEffect(() => {
@@ -236,6 +236,7 @@ export const Carousel: React.FC = () => {
                   muted 
                   loop 
                   playsInline 
+                  preload="auto"
                   className={isVideoVisible ? 'visible' : ''}
                 />
               </VideoWrapper>
