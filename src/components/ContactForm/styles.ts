@@ -70,7 +70,7 @@ export const Input = styled.input`
   &::placeholder {
     color: rgba(255, 255, 255, 0.7);
     font-size: 1.2rem;
-  }
+}
 
   &:focus {
     outline: none;
@@ -94,13 +94,13 @@ export const TextArea = styled.textarea`
   &::placeholder {
     color: rgba(255, 255, 255, 0.7);
     font-size: 1.2rem;
-  }
+}
 
   &:focus {
-    outline: none;
+  outline: none;
     border-color: #F0048A;
     background: rgba(255, 255, 255, 0.15);
-  }
+}
 `;
 
 export const SubmitButton = styled.button`
@@ -123,9 +123,9 @@ export const SubmitButton = styled.button`
 
   &:active {
     transform: translateY(0);
-  }
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     padding: 1rem 1.5rem;
     font-size: 1.1rem;
   }
