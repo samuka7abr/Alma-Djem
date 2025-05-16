@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/global';
+import { MusicVideos } from './components/MusicVideos'
 
 const AppContainer = styled.div`
   overflow-x: hidden;
@@ -70,16 +71,20 @@ export function App() {
   }, [isMobile, hasScrolled]);
 
   const handleScrollDown = () => {
-    const carouselSection = document.getElementById('carousel-section');
+    const carouselSection = document.getElementById('carousel-section')
     if (carouselSection) {
-      carouselSection.scrollIntoView({ behavior: 'smooth' });
-      setShowHeader(true);
-      setHasScrolled(true);
+      const carouselTop = carouselSection.offsetTop
+      window.scrollTo({
+        top: carouselTop,
+        behavior: 'smooth'
+      })
+      setShowHeader(true)
+      setHasScrolled(true)
       setTimeout(() => {
-        setShowIntro(false);
-      }, 1000);
+        setShowIntro(false)
+      }, 1000)
     }
-  };
+  }
 
   return (
     <>
@@ -94,6 +99,10 @@ export function App() {
 
         <Section id="carousel-section">
           <Carousel />
+        </Section>
+
+        <Section id="videos-section">
+          <MusicVideos />
         </Section>
 
         <Section id="discography-section" $isExpanded={isDiscographyExpanded}>
