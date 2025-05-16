@@ -43,7 +43,7 @@ export const IntroContainer = styled.section`
 	position: relative;
 	width: 100%;
 	height: 100vh;
-	background-color: #F0048A;
+	background-color: #F28F09;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
@@ -52,18 +52,18 @@ export const IntroContainer = styled.section`
 `
 
 export const Wave = styled.div<{
-	color: string
-	height: string
-	top: string
-	delay: string
-	duration: string
+	$color: string;
+	height: string;
+	top: string;
+	delay: string;
+	duration: string;
 }>`
 	position: absolute;
 	width: 200%;
 	height: ${({ height }) => height};
 	top: ${({ top }) => top};
 	left: -50%;
-	background-color: ${({ color }) => color};
+	background-color: ${({ $color }) => $color};
 	border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 	opacity: 0;
 	animation: ${floatAndMorph} ${({ duration }) => duration} ease-in-out infinite;
@@ -95,7 +95,7 @@ export const ArrowWrapper = styled.div`
 	span {
 		display: inline-block;
 		font-size: 8rem;
-		color: #111;
+		color: #E31B15;
 		animation: ${blink} 1.5s ease-in-out infinite;
 	}
 `

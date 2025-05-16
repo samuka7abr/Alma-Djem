@@ -38,12 +38,14 @@ export const FormContainer = styled.div`
   backdrop-filter: blur(5px);
 `;
 
-export const FormTitle = styled.h2`
-  text-align: center;
-  color: #fff;
-  font-size: 2.5rem;
+export const ContactFormTitle = styled.h2`
+  color: #ffffff;
+  font-size: 4rem;
   margin-bottom: 2rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-family: 'Akula', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `;
 
 export const Form = styled.form`
@@ -105,7 +107,7 @@ export const TextArea = styled.textarea`
 
 export const SubmitButton = styled.button`
   padding: 1.2rem 2rem;
-  background: #F0048A;
+  background: #F28F09;
   color: white;
   border: none;
   border-radius: 5px;
@@ -117,7 +119,7 @@ export const SubmitButton = styled.button`
   letter-spacing: 1px;
 
   &:hover {
-    background: #d60060;
+    background: rgb(201, 120, 8);
     transform: translateY(-2px);
   }
 

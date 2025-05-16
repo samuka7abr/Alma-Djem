@@ -33,11 +33,11 @@ export const FilterButton = styled.button<{ $active: boolean }>`
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  background: ${({ $active }) => ($active ? '#1DB954' : 'rgba(255,255,255,0.1)')};
+  background: ${({ $active }) => ($active ? '#F28F09' : 'rgba(255,255,255,0.1)')};
   color: ${({ $active }) => ($active ? '#fff' : '#aaa')};
   transition: background 0.3s, color 0.3s;
   &:hover {
-    background: ${({ $active }) => ($active ? '#1ed760' : 'rgba(255,255,255,0.2)')};
+    background: ${({ $active }) => ($active ? 'rgb(201, 120, 8)' : 'rgba(255,255,255,0.2)')};
   }
 
   @media (max-width: 768px) {
@@ -198,32 +198,20 @@ export const MusicLink = styled.a`
   transition: text-decoration-color 0.2s;
   text-underline-offset: 2px;
   &:hover {
-    color: #1DB954;
+    color: #F28F09;
     text-decoration: underline;
-    text-decoration-color: #1DB954;
+    text-decoration-color: #F28F09;
   }
 `
 
 export const DiscographyTitle = styled.h2`
-  text-align: center;
-  color: #fff;
+  color: #ffffff;
   font-size: 4rem;
   margin-bottom: 2rem;
-  font-weight: 700;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (min-height: 900px) {
-    font-size: 3.2rem;
-    margin-bottom: 3rem;
-  }
-  @media (min-height: 1100px) {
-    font-size: 4rem;
-    margin-bottom: 4rem;
-  }
+  text-align: center;
+  font-family: 'Akula', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `
 
 export const SeeMoreButton = styled.button`
@@ -232,13 +220,13 @@ export const SeeMoreButton = styled.button`
   font-size: 1.1rem;
   border: none;
   border-radius: 25px;
-  background: #1DB954;
+  background: #F28F09;
   color: #fff;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 
   &:hover {
-    background: #1ed760;
+    background:rgb(201, 120, 8);
     transform: scale(1.05);
   }
 

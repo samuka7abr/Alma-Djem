@@ -36,9 +36,12 @@ export const MusicVideosContainer = styled.section`
 
 export const MusicVideosTitle = styled.h2`
   color: #ffffff;
-  font-size: 2.5rem;
+  font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
+  font-family: 'Akula', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `
 
 export const VideoGrid = styled.div`

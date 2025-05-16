@@ -3,7 +3,7 @@ import { sendEmail } from '../../services/emailService';
 import {
   ContactSection,
   FormContainer,
-  FormTitle,
+  ContactFormTitle,
   Form,
   FormGroup,
   Input,
@@ -62,7 +62,7 @@ const ContactForm = () => {
   return (
     <ContactSection>
       <FormContainer>
-        <FormTitle>Entre em Contato</FormTitle>
+        <ContactFormTitle>Entre em Contato</ContactFormTitle>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Input

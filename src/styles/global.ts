@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+	@font-face {
+  		font-family: 'Akula';
+  		src: url('/fonts/Akula.ttf') format('truetype');
+  		font-weight: 400;
+  		font-style: normal;
+  		font-display: swap;
+	}
+
 	* {
 		margin: 0;
 		padding: 0;

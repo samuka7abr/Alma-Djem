@@ -13,7 +13,7 @@ import {
   MobileSocials
 } from './styles'
 import { useState } from 'react'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logonova.png'
 
 interface HeaderProps {
   transparent: boolean;
