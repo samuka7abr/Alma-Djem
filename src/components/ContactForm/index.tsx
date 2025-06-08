@@ -49,6 +49,7 @@ const ContactForm = () => {
         message: 'Mensagem enviada com sucesso! Entraremos em contato em breve.'
       });
       setFormData({ name: '', email: '', message: '' });
+      //eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setStatus({
         type: 'error',

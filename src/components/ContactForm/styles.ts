@@ -76,7 +76,7 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #F0048A;
+    border-color: #F28F09;
     background: rgba(255, 255, 255, 0.15);
   }
 `;
@@ -100,7 +100,7 @@ export const TextArea = styled.textarea`
 
   &:focus {
   outline: none;
-    border-color: #F0048A;
+    border-color: #F28F09;
     background: rgba(255, 255, 255, 0.15);
 }
 `;

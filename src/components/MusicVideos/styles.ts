@@ -187,4 +187,57 @@ export const SeeMoreButton = styled.button`
       left: 0;
     }
   }
+`
+
+export const VideoThumbnail = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`
+
+export const VideoModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`
+
+export const ModalOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+`
+
+export const ModalContent = styled.div`
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  height: 80vh;
+  background: #000;
+  border-radius: 8px;
+  z-index: 1001;
+`
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1002;
+
+  &:hover {
+    color: #ff0000;
+  }
 ` 

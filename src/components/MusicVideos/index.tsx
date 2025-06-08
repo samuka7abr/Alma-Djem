@@ -1,24 +1,66 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   MusicVideosContainer,
   MusicVideosTitle,
   VideoGrid,
   VideoCard,
-  VideoPlaceholder,
+  VideoThumbnail,
   YouTubeIcon,
-  VideoOverlay
+  VideoOverlay,
+  VideoModal,
+  ModalContent,
+  CloseButton,
+  ModalOverlay
 } from './styles'
 
+const videos = [
+  {
+    id: 'icjEC-7c16Y',
+    title: 'Alma Djem - Vídeo 1'
+  },
+  {
+    id: 'wYquT1vgy5Y',
+    title: 'Alma Djem - Vídeo 2'
+  },
+  {
+    id: 'kXWYOojGD68',
+    title: 'Alma Djem - Vídeo 3'
+  },
+  {
+    id: 'D9DTbEostEM',
+    title: 'Alma Djem - Vídeo 4'
+  },
+  {
+    id: 'nnqzMxdYQLc',
+    title: 'Alma Djem - Vídeo 5'
+  },
+  {
+    id: 'pLO8EGOfPzU',
+    title: 'Alma Djem - Vídeo 6'
+  }
+]
+
 export const MusicVideos: React.FC = () => {
-  const placeholderVideos = Array(12).fill(null)
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
+
+  const handleVideoClick = (videoId: string) => {
+    setSelectedVideo(videoId)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedVideo(null)
+  }
 
   return (
     <MusicVideosContainer>
       <MusicVideosTitle>Clipes</MusicVideosTitle>
       <VideoGrid>
-        {placeholderVideos.map((_, index) => (
-          <VideoCard key={index}>
-            <VideoPlaceholder>Em Desenvolvimento</VideoPlaceholder>
+        {videos.map((video) => (
+          <VideoCard key={video.id} onClick={() => handleVideoClick(video.id)}>
+            <VideoThumbnail
+              src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+              alt={video.title}
+            />
             <VideoOverlay />
             <YouTubeIcon>
               <svg viewBox="0 0 24 24">
@@ -28,6 +70,24 @@ export const MusicVideos: React.FC = () => {
           </VideoCard>
         ))}
       </VideoGrid>
+
+      {selectedVideo && (
+        <VideoModal>
+          <ModalOverlay onClick={handleCloseModal} />
+          <ModalContent>
+            <CloseButton onClick={handleCloseModal}>×</CloseButton>
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${selectedVideo}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </ModalContent>
+        </VideoModal>
+      )}
     </MusicVideosContainer>
   )
 } 
