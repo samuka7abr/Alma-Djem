@@ -52,7 +52,7 @@ export const MusicVideos: React.FC = () => {
   }
 
   return (
-    <MusicVideosContainer>
+    <MusicVideosContainer id="music-videos">
       <MusicVideosTitle>Clipes</MusicVideosTitle>
       <VideoGrid>
         {videos.map((video) => (
