@@ -6,7 +6,8 @@ import {
   ScrollButton,
   FormSection,
   FormContainer,
-  Title
+  Title,
+  Title2
 } from './styles'
 
 export function CaptureFormPage() {
@@ -21,7 +22,8 @@ export function CaptureFormPage() {
     <PageContainer>
       <HeroSection>
         <BackgroundImage />
-        <Title>Imagem Ilustrativa</Title>
+        <Title>Pré-venda show brasília </Title>
+        <Title2>27 & 28 de Setembro</Title2>
         <ScrollButton onClick={scrollToForm}>
           Garantir meu Ingresso
         </ScrollButton>

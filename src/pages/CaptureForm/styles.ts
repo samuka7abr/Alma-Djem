@@ -24,9 +24,31 @@ export const BackgroundImage = styled.div`
   background-size: cover;
   background-position: center;
   opacity: 0.7;
+  @media (max-width: 768px) {
+    background-image: url('/ALMADJEM_BACKGROUND_MOBILE copiar.png');
+    opacity: 0.45;
+  }
 `
 
 export const Title = styled.h1`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: 'AlmaDjem', sans-serif;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  text-align: center;
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+`
+
+export const Title2 = styled.h1`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,10 +56,15 @@ export const Title = styled.h1`
   color: white;
   font-size: 4rem;
   font-weight: 900;
+  font-family: 'AlmaDjem', sans-serif;
   text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 2;
   text-align: center;
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    font-size: 3rem;
+  }
 `
 
 export const ScrollButton = styled.button`
