@@ -159,6 +159,7 @@ export const Carousel: React.FC = () => {
       } else {
         videoRef.current.addEventListener('loadeddata', handleVideoLoad)
         return () => {
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           videoRef.current?.removeEventListener('loadeddata', handleVideoLoad)
         }
       }
