@@ -98,26 +98,20 @@ export const VideoContent = styled.video`
   }
 `;
 
-export const ImageContent = styled.img<{ $fullSize?: boolean }>`
+export const ImageContent = styled.img<{ $fullSize: boolean }>`
   position: relative;
   display: block;
   border-radius: ${({ $fullSize }) => 
     ($fullSize ? '0' : '1rem')
   };
-  ${({ $fullSize }) =>
-    $fullSize
-      ? css`
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        `
-      : css`
-          max-width: 80%;
-          max-height: 80%;
-          width: auto;
-          height: auto;
-          object-fit: contain;
-        `
+  width: 100%;
+  height: 100%;
+  object-fit: ${({ $fullSize }) => ($fullSize ? 'cover' : 'contain')};
+  filter: brightness(0.7);
+  transition: transform 0.3s ease, filter 0.3s ease;
+
+  @media (max-width: 768px) {
+    object-fit: cover;
   }
 `;
 
@@ -127,6 +121,7 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: clamp(2rem, 4vw, 4rem);
+  font-family: 'AlmaDjem', sans-serif;
   font-weight: bold;
   color: white;
   text-align: center;
@@ -143,8 +138,8 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 35%;
-    font-size: clamp(3rem, 6vw, 4rem);
+    top: 45%;
+    font-size: clamp(3.2rem, 6vw, 4rem);
 
     width: 90%;
     padding: 0 1rem;

@@ -40,11 +40,11 @@ interface SlideItem {
 const slides: SlideItem[] = [
   { 
     id: 'slide-1', 
-    src: '/image.png', 
-    title: 'Em Desenvolvimento', 
+    src: '/ALMADJEM_BACKGROUND_1920X1080_ copiar.png', 
+    title: 'Garanta Seu Ingresso!', 
     link: '/capture-form', 
     isImage: true, 
-    hasBackground: true, 
+    hasBackground: false, 
     fullSize: true 
   },
   { 
@@ -97,7 +97,12 @@ export const Carousel: React.FC = () => {
       window.removeEventListener('resize', handleResize)
   }, [])
 
-  const currentSlide = slides[currentIndex]
+  const currentSlide = {
+    ...slides[currentIndex],
+    src: currentIndex === 0 && isMobile 
+      ? '/ALMADJEM_BACKGROUND_MOBILE copiar.png' 
+      : slides[currentIndex].src
+  }
 
   const handleNext = useCallback(() => {
     setDirection('right')
@@ -220,7 +225,10 @@ export const Carousel: React.FC = () => {
           >
             {slide.isImage ? (
               <ImageContent 
-                src={slide.src} 
+                src={isMobile && index === 0 
+                  ? '/ALMADJEM_BACKGROUND_MOBILE copiar.png' 
+                  : slide.src
+                } 
                 alt={slide.title} 
                 $fullSize={slide.fullSize} 
                 loading="lazy" 

@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
 	@font-face {
   		font-family: 'AlmaDjem';
-  		src: url('/AlmaDjem.otf') format('opentype');
+  		src: url('/fonts/Butler_Black_Stencil.otf') format('opentype');
   		font-weight: normal;
   		font-style: normal;
   		font-display: swap;
