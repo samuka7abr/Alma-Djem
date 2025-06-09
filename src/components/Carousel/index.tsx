@@ -5,6 +5,7 @@ import React,
     useRef, 
     useEffect 
   } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
   CarouselContainer,
@@ -39,20 +40,20 @@ interface SlideItem {
 const slides: SlideItem[] = [
   { 
     id: 'slide-1', 
+    src: '/image.png', 
+    title: 'Em Desenvolvimento', 
+    link: '/capture-form', 
+    isImage: true, 
+    hasBackground: true, 
+    fullSize: true 
+  },
+  { 
+    id: 'slide-2', 
     src: 'https://aqyjnfjjhooqvxvcffou.supabase.co/storage/v1/object/public/videos/v1_first_half_first_half.mp4', 
     title: 'Alma Djem feat Maneva - Aeroporto', 
     link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ', 
     isImage: false, 
     hasBackground: false, 
-    fullSize: false 
-  },
-  { 
-    id: 'slide-2', 
-    src: '/capa-album.png', 
-    title: 'DVD Alma Djem Acústico em São Paulo', 
-    link: 'https://open.spotify.com/intl-pt/album/2zCD0650sdKCLipMHhv1Yq?si=F2J-8QsSSgaFLbdmP_FjaQ', 
-    isImage: true, 
-    hasBackground: true, 
     fullSize: false 
   },
   { 
@@ -68,6 +69,7 @@ const slides: SlideItem[] = [
 
 export const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const navigate = useNavigate()
   
   const [direction, setDirection] = useState<Direction>('right')
   
@@ -153,6 +155,14 @@ export const Carousel: React.FC = () => {
     }
   }, [currentIndex])
 
+  const handleActionClick = (link: string, isFirstSlide: boolean) => {
+    if (isFirstSlide) {
+      navigate(link)
+    } else {
+      window.open(link, '_blank', 'noopener,noreferrer')
+    }
+  }
+
   return (
     <CarouselContainer
       onMouseMove={!isMobile ? handleMouseMove : undefined}
@@ -172,9 +182,7 @@ export const Carousel: React.FC = () => {
           
           <ActionButton
             direction={direction}
-            href={currentSlide.link}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => handleActionClick(currentSlide.link, currentIndex === 0)}
             aria-label={`Veja mais sobre: ${currentSlide.title}`}
           >
             Veja Mais
@@ -229,16 +237,16 @@ export const Carousel: React.FC = () => {
                   alt="Carregando vídeo"
                   className={isVideoVisible ? 'hidden' : ''}
                 />
-                <VideoContent 
+              <VideoContent 
                   ref={videoRef}
-                  src={slide.src} 
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline 
+                src={slide.src} 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
                   preload="auto"
                   className={isVideoVisible ? 'visible' : ''}
-                />
+              />
               </VideoWrapper>
             )}
             
@@ -252,9 +260,7 @@ export const Carousel: React.FC = () => {
                 
                 <ActionButton
                   direction={direction}
-                  href={slide.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={() => handleActionClick(slide.link, index === 0)}
                   aria-label={`Veja mais sobre: ${slide.title}`}
                 >
                   Veja Mais

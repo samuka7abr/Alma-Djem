@@ -134,7 +134,6 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
   max-width: 800px;
   z-index: 2;
   line-height: 1.2;
-  letter-spacing: 0.4rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   animation: ${({ direction }) =>
     direction === 'right'
@@ -145,14 +144,14 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
   @media (max-width: 768px) 
   {
     top: 35%;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    letter-spacing: 0.2rem;
+    font-size: clamp(3rem, 6vw, 4rem);
+
     width: 90%;
     padding: 0 1rem;
   }
 `;
 
-export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
+export const ActionButton = styled.button<{ direction: 'left' | 'right' }>`
   position: absolute;
   top: 45%;
   left: 50%;
@@ -185,9 +184,9 @@ export const ActionButton = styled.a<{ direction: 'left' | 'right' }>`
   {
     top: 50%;
     padding: 0.8rem 1.2rem;
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    font-size: clamp(1.5rem, 3vw, 1.2rem);
     min-width: 8rem;
-    margin-top: 1rem;
+
   }
   
   &:hover 
