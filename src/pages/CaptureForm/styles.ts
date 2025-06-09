@@ -20,7 +20,7 @@ export const BackgroundImage = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/banda.png');
+  background-image: url('/ALMADJEM_BACKGROUND_1920X1080_ copiar.png');
   background-size: cover;
   background-position: center;
   opacity: 0.7;
@@ -41,19 +41,21 @@ export const Title = styled.h1`
 `
 
 export const ScrollButton = styled.button`
-  background-color: #FF6B00;
+  background-color: #0388C3;
   color: white;
   border: none;
   padding: 1.5rem 3rem;
+  margin-bottom: 100px;
   font-size: 1.8rem;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   z-index: 2;
 
   &:hover {
-    background-color:#FF8533;
+    background-color:#55FFFF;
+    color:rgba(0, 0, 0, 0.51);
     transform: scale(1.05);
   }
 `

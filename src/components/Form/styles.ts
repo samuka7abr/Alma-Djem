@@ -51,12 +51,12 @@ export const Input = styled.input`
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #FF6B00;
+    border-color: #0388C3;
   }
 
   &:focus {
     outline: none;
-    border-color: #FF6B00;
+    border-color: #0388C3;
   }
 
   &::placeholder {
@@ -78,12 +78,12 @@ export const TextArea = styled.textarea`
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #FF6B00;
+    border-color: #0388C3;
   }
 
   &:focus {
     outline: none;
-    border-color: #FF6B00;
+    border-color: #0388C3;
   }
 
   &::placeholder {
@@ -95,7 +95,7 @@ export const TextArea = styled.textarea`
 export const SubmitButton = styled.button`
   width: 100%;
   padding: 1rem;
-  background: #FF6B00;
+  background: #0388C3;
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -109,7 +109,8 @@ export const SubmitButton = styled.button`
   font-family: 'Akula', sans-serif;
 
   &:hover {
-    background: #FF8533;
+    background: #55FFFF;
+    color:rgba(0, 0, 0, 0.51);
   }
 
   &:disabled {
@@ -120,7 +121,7 @@ export const SubmitButton = styled.button`
 
 export const ErrorMessage = styled.span`
   color: #ff4444;
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-top: 0.25rem;
   display: block;
 ` 
