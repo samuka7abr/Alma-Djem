@@ -3,49 +3,66 @@ import styled, { keyframes } from 'styled-components'
 export const PageContainer = styled.div`
   min-height: 100vh;
   background-color: #000;
+`
+
+export const HeroSection = styled.section`
+  height: 100vh;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const BackgroundImage = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/banda.png');
+  background-image: url('/ALMADJEM_BACKGROUND_1920X1080_ copiar.png');
   background-size: cover;
   background-position: center;
-  opacity: 0.7;
+  opacity: 0.5;
+
+  @media (max-width: 768px) {
+    background-image: url('/ALMADJEM_BACKGROUND_MOBILE copiar.png');
+    opacity: 0.5;
+  }
 `
 
-export const ContentContainer = styled.div`
-  position: relative;
+export const ContentWrapper = styled.div`
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4rem;
+  border-radius: 2rem;
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
   z-index: 2;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
 `
 
 export const Title = styled.h1`
   color: white;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 900;
-  text-align: center;
-  margin-bottom: 2rem;
+  font-family: 'AlmaDjem', sans-serif;
+  text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `
 
 export const Message = styled.p`
   color: white;
   font-size: 2rem;
-  text-align: center;
-  max-width: 600px;
-  line-height: 1.6;
   margin-bottom: 3rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.5;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
 `
 
 const progressAnimation = keyframes`
@@ -87,21 +104,23 @@ export const ProgressText = styled.span`
 `
 
 export const WhatsAppButton = styled.a`
+  display: inline-block;
   background-color: #25D366;
   color: white;
   text-decoration: none;
   padding: 1.5rem 3rem;
   font-size: 1.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 50px;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  border: 2px solid #25D366;
 
   &:hover {
-    background-color: #128C7E;
+    background-color: transparent;
     transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.2rem 2.4rem;
+    font-size: 1.6rem;
   }
 `
