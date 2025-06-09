@@ -33,6 +33,26 @@ export const Form: React.FC = () => {
     }
   }
 
+  const validatePhone = (phone: string) => {
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    if (cleanPhone.length < 10 || cleanPhone.length > 11) {
+      return false;
+    }
+
+    const formattedPhone = cleanPhone.replace(
+      /^(\d{2})(\d{4,5})(\d{4})$/,
+      '($1) $2-$3'
+    );
+
+    setFormData(prev => ({
+      ...prev,
+      phone: formattedPhone
+    }));
+
+    return true;
+  };
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
@@ -46,8 +66,8 @@ export const Form: React.FC = () => {
       newErrors.email = 'Email inválido'
     }
 
-    if (formData.phone && !/^\(\d{2}\) \d{5}-\d{4}$/.test(formData.phone)) {
-      newErrors.phone = 'Telefone inválido'
+    if (formData.phone && !validatePhone(formData.phone)) {
+      newErrors.phone = 'Telefone inválido!'
     }
 
     setErrors(newErrors)
