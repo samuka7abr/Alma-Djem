@@ -51,21 +51,21 @@ export function Header({ transparent }: HeaderProps) {
           href="#" 
           onClick={(e) => {
             e.preventDefault()
-            scrollToSection('discography-section')
-          }}
-          $transparent={transparent}
-        >
-          DISCOGRAFIA
-        </SocialLink>
-        <SocialLink 
-          href="#" 
-          onClick={(e) => {
-            e.preventDefault()
             scrollToSection('music-videos')
           }}
           $transparent={transparent}
         >
           CLIPES
+        </SocialLink>
+        <SocialLink 
+          href="#" 
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('discography-section')
+          }}
+          $transparent={transparent}
+        >
+          DISCOGRAFIA
         </SocialLink>
         <SocialLink 
           href="#" 
@@ -112,21 +112,21 @@ export function Header({ transparent }: HeaderProps) {
             href="#" 
             onClick={(e) => {
               e.preventDefault()
-              scrollToSection('discography-section')
-            }}
-            $transparent={transparent}
-          >
-            DISCOGRAFIA
-          </SocialLink>
-          <SocialLink 
-            href="#" 
-            onClick={(e) => {
-              e.preventDefault()
               scrollToSection('music-videos')
             }}
             $transparent={transparent}
           >
             CLIPES
+          </SocialLink>
+          <SocialLink 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToSection('discography-section')
+            }}
+            $transparent={transparent}
+          >
+            DISCOGRAFIA
           </SocialLink>
           <SocialLink 
             href="#" 
