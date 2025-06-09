@@ -9,6 +9,14 @@ export const GlobalStyle = createGlobalStyle`
   		font-display: swap;
 	}
 
+	@font-face {
+  		font-family: 'AlmaDjem';
+  		src: url('/AlmaDjem.otf') format('opentype');
+  		font-weight: normal;
+  		font-style: normal;
+  		font-display: swap;
+	}
+
 	* {
 		margin: 0;
 		padding: 0;
