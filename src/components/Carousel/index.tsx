@@ -14,6 +14,7 @@ import {
   VideoContent,
   ImageContent,
   SlideTitle,
+  SlideDescription,
   ActionButton,
   PrevButton,
   NextButton,
@@ -31,6 +32,7 @@ interface SlideItem {
   id: string
   src: string
   title: string
+  description: string
   link: string
   isImage: boolean
   hasBackground: boolean
@@ -41,7 +43,8 @@ const slides: SlideItem[] = [
   { 
     id: 'slide-1', 
     src: '/ALMADJEM_BACKGROUND_1920X1080_ copiar.png', 
-    title: 'Garanta Seu Ingresso!', 
+    title: 'Show Brasília 27 & 28/09', 
+    description: 'Garanta seu ingresso na pré-venda!',
     link: '/capture-form', 
     isImage: true, 
     hasBackground: false, 
@@ -51,6 +54,7 @@ const slides: SlideItem[] = [
     id: 'slide-2', 
     src: 'https://aqyjnfjjhooqvxvcffou.supabase.co/storage/v1/object/public/videos/v1_first_half_first_half.mp4', 
     title: 'Alma Djem feat Maneva - Aeroporto', 
+    description: '',
     link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ', 
     isImage: false, 
     hasBackground: false, 
@@ -59,7 +63,8 @@ const slides: SlideItem[] = [
   { 
     id: 'slide-3', 
     src: '/banda.png', 
-    title: 'Conheça a história da banda Alma Djem', 
+    title: 'Conheça a história da banda Alma Djem',   
+    description: '',
     link: 'https://www.almadjem.com.br/material/Release-Alma_Djem.pdf', 
     isImage: true, 
     hasBackground: false, 
@@ -185,6 +190,12 @@ export const Carousel: React.FC = () => {
             {currentSlide.title}
           </SlideTitle>
           
+          {currentIndex === 0 && (
+            <SlideDescription>
+              {currentSlide.description}
+            </SlideDescription>
+          )}
+          
           <ActionButton
             direction={direction}
             onClick={() => handleActionClick(currentSlide.link, currentIndex === 0)}
@@ -265,6 +276,12 @@ export const Carousel: React.FC = () => {
                 >
                   {slide.title}
                 </SlideTitle>
+                
+                {index === 0 && (
+                  <SlideDescription>
+                    {slide.description}
+                  </SlideDescription>
+                )}
                 
                 <ActionButton
                   direction={direction}

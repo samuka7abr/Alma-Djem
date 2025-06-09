@@ -59,9 +59,9 @@ export const SlideWrapper = styled.div<{
     ($hasBackground ? '#F18F0A' : 'transparent')
   };
   filter: ${({ $isFocused }) => 
-    ($isFocused ? 'none' : 'blur(12px)')
+    ($isFocused ? 'none' : 'blur(4px)')
   };
-  transition: filter 0.5s ease;
+  transition: filter 0.3s ease;
 
   @media (max-width: 768px) 
   {
@@ -138,11 +138,38 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 45%;
+    top: 42%;
     font-size: clamp(3.2rem, 6vw, 4rem);
 
     width: 90%;
     padding: 0 1rem;
+  }
+`;
+
+export const SlideDescription = styled.p<{ direction?: 'left' | 'right' }>`
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  width: 80%;
+  max-width: 800px;
+  z-index: 2;
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: ${({ direction }) =>
+    direction === 'right'
+      ? css`${slideFromRight} 0.7s ease-out forwards`
+      : css`${slideFromLeft} 0.7s ease-out forwards`
+  };
+
+  @media (max-width: 768px) {
+    top: 47%;
+    font-size: clamp(1.5rem, 3vw, 1.6rem);
+    width: 90%;
   }
 `;
 
@@ -156,7 +183,7 @@ export const ActionButton = styled.button<{ direction: 'left' | 'right' }>`
   align-items: center;
   justify-content: center;
   border: 1px solid white;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(5px);
   color: white;
   text-decoration: none;
@@ -166,7 +193,7 @@ export const ActionButton = styled.button<{ direction: 'left' | 'right' }>`
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 10rem;
-  border-radius: 2px;
+  border-radius: 8px;
   animation: ${({ direction }) =>
     direction === 'right'
       ? css`${slideFromRight} 0.7s ease-out 0.1s forwards`
@@ -177,7 +204,7 @@ export const ActionButton = styled.button<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 50%;
+    top: 53%;
     padding: 0.8rem 1.2rem;
     font-size: clamp(1.5rem, 3vw, 1.2rem);
     min-width: 8rem;
@@ -225,7 +252,7 @@ const NavButton = styled.button`
   &:focus 
   {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.07);
   }
 
   @media (max-width: 768px) 
