@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { 
   PageContainer, 
   HeroSection, 
@@ -10,6 +11,17 @@ import {
 } from './styles'
 
 export const ThankYouPage: React.FC = () => {
+  const navigate = useNavigate()
+
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    window.open('https://chat.whatsapp.com/I92OOLhVBCWHgnzq93L6GY', '_blank', 'noopener,noreferrer')
+    
+    setTimeout(() => {
+      navigate('/')
+    }, 1000)
+  }
+
   return (
     <PageContainer>
       <HeroSection>
@@ -24,6 +36,7 @@ export const ThankYouPage: React.FC = () => {
             href="https://chat.whatsapp.com/I92OOLhVBCWHgnzq93L6GY" 
             target="_blank" 
             rel="noopener noreferrer"
+            onClick={handleWhatsAppClick}
           >
             Entrar no grupo
           </WhatsAppButton>
