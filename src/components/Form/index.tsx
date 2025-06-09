@@ -64,6 +64,8 @@ export const Form: React.FC = () => {
     setIsSubmitting(true)
     setSubmitStatus(null)
     
+    navigate('/thank-you')
+    
     try {
       const response = await fetch('https://alma-djem-forms-api.onrender.com/api/submit-form', {
         method: 'POST',
@@ -79,10 +81,12 @@ export const Form: React.FC = () => {
 
       setSubmitStatus('success')
       setFormData({ name: '', email: '', phone: '' })
-      navigate('/thank-you')
+      console.log('Formulário enviado com sucesso')
     } catch (error) {
       console.error('Erro ao enviar:', error)
+      alert('Erro ao enviar formulário!')
       setSubmitStatus('error')
+      navigate('/capture-form')
     } finally {
       setIsSubmitting(false)
     }
