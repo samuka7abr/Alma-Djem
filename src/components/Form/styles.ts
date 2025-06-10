@@ -14,7 +14,7 @@ export const FormTitle = styled.h1`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
-  font-family: 'Akula', sans-serif;
+  font-family: 'AlmaDjem', sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
 `
@@ -37,7 +37,7 @@ export const Label = styled.label`
   color: #ffffff;
   margin-bottom: 0.5rem;
   font-size: 2rem;
-  font-family: 'Akula', sans-serif;
+  font-family: 'AlmaDjem', sans-serif;
 `
 
 export const Input = styled.input`
@@ -106,7 +106,7 @@ export const SubmitButton = styled.button`
   text-transform: uppercase;
   margin-top: 2rem;
   letter-spacing: 1px;
-  font-family: 'Akula', sans-serif;
+  font-family: 'AlmaDjem', sans-serif;
 
   &:hover {
     background: #55FFFF;
