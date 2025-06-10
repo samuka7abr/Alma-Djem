@@ -77,6 +77,13 @@ export function Header({ transparent }: HeaderProps) {
         >
           CONTATO
         </SocialLink>
+        <SocialLink 
+          href="https://algohits.com/loja/artista/alma-djem/" 
+          target="_blank"
+          $transparent={isOpen ? false : transparent}
+        >
+          LOJA
+        </SocialLink>
       </Actions>
 
       <Actions>
@@ -137,6 +144,13 @@ export function Header({ transparent }: HeaderProps) {
             $transparent={isOpen ? false : transparent}
           >
             CONTATO
+          </SocialLink>
+          <SocialLink 
+            href="https://algohits.com/loja/artista/alma-djem/" 
+            target="_blank"
+            $transparent={isOpen ? false : transparent}
+          >
+            LOJA
           </SocialLink>
         </MobileNav>
         <MobileSocials>
