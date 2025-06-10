@@ -170,7 +170,7 @@ export const Form: React.FC = () => {
         )}
 
         <SubmitButton type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+          {isSubmitting ? 'Enviando...' : 'Registrar'}
         </SubmitButton>
       </FormWrapper>
     </FormContainer>
