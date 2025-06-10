@@ -1,7 +1,7 @@
 import { Header } from './components/Header';
 // import { Intro } from './components/Intro';
 import { Carousel } from './components/Carousel';
-import { Discography } from './components/Discography';
+// import { Discography } from './components/Discography';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
@@ -29,7 +29,7 @@ export function App() {
   const [headerTransparent, setHeaderTransparent] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   // const [hasScrolled, setHasScrolled] = useState(false);
-  const [isDiscographyExpanded, setIsDiscographyExpanded] = useState(false);
+  // const [isDiscographyExpanded, setIsDiscographyExpanded] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -105,9 +105,9 @@ export function App() {
           <MusicVideos />
         </Section>
 
-        <Section id="discography-section" $isExpanded={isDiscographyExpanded}>
+        {/* <Section id="discography-section" $isExpanded={isDiscographyExpanded}>
           <Discography onExpandChange={setIsDiscographyExpanded} />
-        </Section>
+        </Section> */}
 
         <Section id="contact-section">
           <ContactForm />

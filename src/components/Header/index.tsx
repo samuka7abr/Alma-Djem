@@ -57,7 +57,7 @@ export function Header({ transparent }: HeaderProps) {
         >
           CLIPES
         </SocialLink>
-        <SocialLink 
+        {/* <SocialLink 
           href="#" 
           onClick={(e) => {
             e.preventDefault()
@@ -66,7 +66,7 @@ export function Header({ transparent }: HeaderProps) {
           $transparent={isOpen ? false : transparent}
         >
           DISCOGRAFIA
-        </SocialLink>
+        </SocialLink> */}
         <SocialLink 
           href="#" 
           onClick={(e) => {
@@ -118,7 +118,7 @@ export function Header({ transparent }: HeaderProps) {
           >
             CLIPES
           </SocialLink>
-          <SocialLink 
+          {/* <SocialLink 
             href="#" 
             onClick={(e) => {
               e.preventDefault()
@@ -127,7 +127,7 @@ export function Header({ transparent }: HeaderProps) {
             $transparent={isOpen ? false : transparent}
           >
             DISCOGRAFIA
-          </SocialLink>
+          </SocialLink> */}
           <SocialLink 
             href="#" 
             onClick={(e) => {

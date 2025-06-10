@@ -37,7 +37,7 @@ export const Label = styled.label`
   color: #ffffff;
   margin-bottom: 0.5rem;
   font-size: 2rem;
-  font-family: 'AlmaDjem', sans-serif;
+  font-family: 'Open-Sans', sans-serif;
 `
 
 export const Input = styled.input`
@@ -56,7 +56,7 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #0388C3;
+    border-color: #55FFFF;
   }
 
   &::placeholder {

@@ -107,11 +107,12 @@ export const ImageContent = styled.img<{ $fullSize: boolean }>`
   width: 100%;
   height: 100%;
   object-fit: ${({ $fullSize }) => ($fullSize ? 'cover' : 'contain')};
-  filter: brightness(0.7);
+  filter: brightness(0.5);
   transition: transform 0.3s ease, filter 0.3s ease;
 
   @media (max-width: 768px) {
     object-fit: cover;
+    filter: brightness(0.5);
   }
 `;
 
@@ -120,7 +121,7 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-size: clamp(5.5rem, 4vw, 4rem);
   font-family: 'AlmaDjem', sans-serif;
   font-weight: bold;
   color: white;
@@ -138,10 +139,10 @@ export const SlideTitle = styled.h2<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 42%;
-    font-size: clamp(3.2rem, 6vw, 4rem);
+    top: 35%;
+    font-size: clamp(4.1rem, 6vw, 4rem);
 
-    width: 90%;
+    width: 80%;
     padding: 0 1rem;
   }
 `;
@@ -167,8 +168,9 @@ export const SlideDescription = styled.p<{ direction?: 'left' | 'right' }>`
   };
 
   @media (max-width: 768px) {
+    color:#FFFFFF;
     top: 47%;
-    font-size: clamp(1.5rem, 3vw, 1.6rem);
+    font-size: clamp(1.9rem, 3vw, 1.6rem);
     width: 90%;
   }
 `;
@@ -204,11 +206,10 @@ export const ActionButton = styled.button<{ direction: 'left' | 'right' }>`
 
   @media (max-width: 768px) 
   {
-    top: 53%;
+    top: 57%;
     padding: 0.8rem 1.2rem;
     font-size: clamp(1.5rem, 3vw, 1.2rem);
     min-width: 8rem;
-
   }
   
   &:hover 

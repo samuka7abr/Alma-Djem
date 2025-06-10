@@ -63,8 +63,8 @@ export const Title2 = styled.h1`
   text-align: center;
   
   @media (max-width: 375px) {
-    top: 55%;                    /* empurra o título para baixo */
-    transform: translate(-50%, -60%); /* mantém o centramento horizontal, mas ajusta vertical */
+    top: 55%;                    
+    transform: translate(-50%, -60%); 
     font-size: 3rem;
   }
   @media (max-width: 768px) {
