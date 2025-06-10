@@ -43,7 +43,9 @@ export const Title = styled.h1`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 2;
   text-align: center;
+
   @media (max-width: 768px) {
+    top: 35%;
     font-size: 3rem;
   }
 `
@@ -61,17 +63,13 @@ export const Title2 = styled.h1`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 2;
   text-align: center;
-  
-  @media (max-width: 375px) {
-    top: 55%;                    
-    transform: translate(-50%, -60%); 
-    font-size: 3rem;
-  }
+
   @media (max-width: 768px) {
-    margin-top: 20px;
+    top: 60%;
     font-size: 3rem;
   }
 `
+
 
 export const ScrollButton = styled.button`
   background-color: #0388C3;
