@@ -39,7 +39,7 @@ export const MusicVideosTitle = styled.h2`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
-  font-family: 'Akula', sans-serif;
+  font-family: 'AlmaDjem', sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
 `

@@ -29,7 +29,7 @@ export const Filters = styled.div`
 
 export const FilterButton = styled.button<{ $active: boolean }>`
   padding: 0.5rem 1.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -42,7 +42,7 @@ export const FilterButton = styled.button<{ $active: boolean }>`
 
   @media (max-width: 768px) {
     padding: 0.4rem 1rem;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 `
 
@@ -209,7 +209,7 @@ export const DiscographyTitle = styled.h2`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
-  font-family: 'Akula', sans-serif;
+  font-family: 'AlmaDjem', sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
 `
