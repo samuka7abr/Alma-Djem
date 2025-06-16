@@ -2,7 +2,7 @@ import { Header } from './components/Header';
 // import { Intro } from './components/Intro';
 import { Carousel } from './components/Carousel';
 // import { Discography } from './components/Discography';
-import ContactForm from './components/ContactForm';
+import { ContactForm } from './components/ContactForm';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';

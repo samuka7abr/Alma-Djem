@@ -1,6 +1,136 @@
 import styled from 'styled-components';
 import backgroundImage from '../../assets/image-footer.jpg';
 
+export const Container = styled.section`
+  width: 100%;
+  min-height: 100vh;
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+  }
+`;
+
+export const Content = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+`;
+
+export const Title = styled.h2`
+  font-size: 4rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'AlmaDjem', sans-serif;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-top: -150px;
+`;
+
+export const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 100px;
+`;
+
+export const PhoneNumbers = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+`;
+
+export const PhoneNumber = styled.button`
+  font-size: 2.5rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    transform: scale(1.05);
+    color: #25D366;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+export const WhatsAppButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 1.5rem 3rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 5rem;
+  width: 100%;
+  max-width: 400px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 2;
+
+  &:hover {
+    background: #128C7E;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+
+    svg {
+      font-size: 1.8rem;
+    }
+  }
+`;
+
 export const ContactSection = styled.section`
   width: 100%;
   min-height: 100vh;
