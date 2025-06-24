@@ -5,7 +5,6 @@ import React,
     useRef, 
     useEffect 
   } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import {
   CarouselContainer,
@@ -44,8 +43,8 @@ const slides: SlideItem[] = [
     id: 'slide-1', 
     src: '/ALMADJEM_BACKGROUND_1920X1080_-copiar.webp', 
     title: 'Show Brasília 27 & 28/09', 
-    description: 'Garanta seu ingresso na pré-venda!',
-    link: '/capture-form', 
+    description: 'Garanta seu ingresso agora!',
+    link: 'https://www.bilheteriadigital.com/almadjem', 
     isImage: true, 
     hasBackground: false, 
     fullSize: true 
@@ -74,7 +73,6 @@ const slides: SlideItem[] = [
 
 export const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const navigate = useNavigate()
   
   const [direction, setDirection] = useState<Direction>('right')
   
@@ -166,12 +164,8 @@ export const Carousel: React.FC = () => {
     }
   }, [currentIndex])
 
-  const handleActionClick = (link: string, isFirstSlide: boolean) => {
-    if (isFirstSlide) {
-      navigate(link)
-    } else {
-      window.open(link, '_blank', 'noopener,noreferrer')
-    }
+  const handleActionClick = (link: string) => {
+    window.open(link, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -199,7 +193,7 @@ export const Carousel: React.FC = () => {
           
           <ActionButton
             direction={direction}
-            onClick={() => handleActionClick(currentSlide.link, currentIndex === 0)}
+            onClick={() => handleActionClick(currentSlide.link)}
             aria-label={`Veja mais sobre: ${currentSlide.title}`}
           >
             Veja Mais
@@ -286,7 +280,7 @@ export const Carousel: React.FC = () => {
                 
                 <ActionButton
                   direction={direction}
-                  onClick={() => handleActionClick(slide.link, index === 0)}
+                  onClick={() => handleActionClick(slide.link)}
                   aria-label={`Veja mais sobre: ${slide.title}`}
                 >
                   Veja Mais
