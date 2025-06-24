@@ -69,6 +69,7 @@ export const PhoneNumber = styled.button`
   color: #fff;
   text-align: center;
   font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
   background: transparent;
   border: none;
   cursor: pointer;

@@ -42,7 +42,7 @@ interface SlideItem {
 const slides: SlideItem[] = [
   { 
     id: 'slide-1', 
-    src: '/ALMADJEM_BACKGROUND_1920X1080_ copiar.png', 
+    src: '/ALMADJEM_BACKGROUND_1920X1080_-copiar.webp', 
     title: 'Show Brasília 27 & 28/09', 
     description: 'Garanta seu ingresso na pré-venda!',
     link: '/capture-form', 
