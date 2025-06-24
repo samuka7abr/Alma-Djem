@@ -283,4 +283,24 @@ export const StatusMessage = styled.div<{ $type: 'success' | 'error' | null }>`
     $type === 'error' ? '#ff0000' : 
     'transparent'
   };
+`;
+
+export const LogoAndPhones = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+export const LogoImg = styled.img`
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+  @media (max-width: 600px) {
+    height: 120px;
+  }
 `; 
