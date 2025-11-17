@@ -304,4 +304,35 @@ export const LogoImg = styled.img`
   @media (max-width: 600px) {
     height: 120px;
   }
+`;
+
+export const SocialLinks = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    width: 100%;
+  }
+`;
+
+export const SocialIcon = styled.a`
+  color: #fff;
+  font-size: 4rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: #F28F09;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `; 

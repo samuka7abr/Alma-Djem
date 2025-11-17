@@ -1,5 +1,5 @@
 import { Header } from './components/Header';
-// import { Intro } from './components/Intro';
+import { Intro } from './components/Intro';
 import { Carousel } from './components/Carousel';
 // import { Discography } from './components/Discography';
 import { ContactForm } from './components/ContactForm';
@@ -24,11 +24,11 @@ const Section = styled.section<{ $isExpanded?: boolean }>`
 `;
 
 export function App() {
-  // const [showIntro, setShowIntro] = useState(true);
-  const [showHeader, setShowHeader] = useState(true); // Mudado para true já que não temos mais intro
+  const [showIntro, setShowIntro] = useState(true);
+  const [showHeader, setShowHeader] = useState(false);
   const [headerTransparent, setHeaderTransparent] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  // const [hasScrolled, setHasScrolled] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   // const [isDiscographyExpanded, setIsDiscographyExpanded] = useState(false);
 
   useEffect(() => {
@@ -55,9 +55,9 @@ export function App() {
         const carouselTop = carouselSection.offsetTop;
         
         if (isMobile) {
-          // if (!hasScrolled) {
-          //   setShowHeader(scrollPosition >= window.innerHeight * 0.8);
-          // }
+          if (!hasScrolled) {
+            setShowHeader(scrollPosition >= window.innerHeight * 0.8);
+          }
         } else {
           setShowHeader(scrollPosition >= carouselTop - 50);
         }
@@ -70,31 +70,31 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobile]); // Removido hasScrolled das dependências
 
-  // const handleScrollDown = () => {
-  //   const carouselSection = document.getElementById('carousel-section')
-  //   if (carouselSection) {
-  //     const carouselTop = carouselSection.offsetTop
-  //     window.scrollTo({
-  //       top: carouselTop,
-  //       behavior: 'smooth'
-  //     })
-  //     setShowHeader(true)
-  //     setHasScrolled(true)
-  //     setTimeout(() => {
-  //       setShowIntro(false)
-  //     }, 1000)
-  //   }
-  // }
+  const handleScrollDown = () => {
+    const carouselSection = document.getElementById('carousel-section')
+    if (carouselSection) {
+      const carouselTop = carouselSection.offsetTop
+      window.scrollTo({
+        top: carouselTop,
+        behavior: 'smooth'
+      })
+      setShowHeader(true)
+      setHasScrolled(true)
+      setTimeout(() => {
+        setShowIntro(false)
+      }, 1000)
+    }
+  }
 
   return (
     <>
       <GlobalStyle />
       <AppContainer>
-        {/* {showIntro && (
+        {showIntro && (
           <Section>
             <Intro onScrollDown={handleScrollDown} />
           </Section>
-        )} */}
+        )}
         {showHeader && <Header transparent={headerTransparent} />}
 
         <Section id="carousel-section">

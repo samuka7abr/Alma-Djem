@@ -73,14 +73,25 @@ export const Wave = styled.div<{
 `
 
 export const LogoWrapper = styled.div`
-	z-index: 10;
+  z-index: 10;
 
-	img {
-		height: 28rem;
-		opacity: 0;
-		animation: ${fadeInUp} 1.6s ease-out forwards;
-	}
-`
+  img {
+    height: 60rem;
+    opacity: 0;
+    animation: ${fadeInUp} 1.6s ease-out forwards;
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      height: 45rem; /* ajuste como preferir */
+    }
+
+    /* Mobile ainda menor */
+    @media (max-width: 480px) {
+      height: 35rem;
+    }
+  }
+`;
+
 
 export const ArrowWrapper = styled.div`
 	z-index: 10;

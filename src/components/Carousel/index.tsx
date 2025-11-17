@@ -39,19 +39,19 @@ interface SlideItem {
 }
 
 const slides: SlideItem[] = [
-  { 
+    { 
     id: 'slide-1', 
-    src: '/ALMADJEM_BACKGROUND_1920X1080_-copiar.webp', 
-    title: 'Show Brasília 27 & 28/09', 
-    description: 'Garanta seu ingresso agora!',
-    link: 'https://www.bilheteriadigital.com/almadjem', 
+    src: '/banda.png', 
+    title: 'Conheça a história da banda',   
+    description: '',
+    link: 'https://pt.wikipedia.org/wiki/Alma_Djem', 
     isImage: true, 
     hasBackground: false, 
     fullSize: true 
   },
   { 
     id: 'slide-2', 
-    src: 'https://aqyjnfjjhooqvxvcffou.supabase.co/storage/v1/object/public/videos/v1_first_half_first_half.mp4', 
+    src: 'video/v1_first_half_first_half.mp4', 
     title: 'Alma Djem feat Maneva - Aeroporto', 
     description: '',
     link: 'https://youtu.be/icjEC-7c16Y?si=pSMseyTj-jA5OvyJ', 
@@ -61,14 +61,14 @@ const slides: SlideItem[] = [
   },
   { 
     id: 'slide-3', 
-    src: '/banda.png', 
-    title: 'Conheça a história da banda Alma Djem',   
+    src: '/ALMADJEM_BACKGROUND_1920X1080_-copiar.webp', 
+    title: 'Conheça nossa Loja!', 
     description: '',
-    link: 'https://www.almadjem.com.br/material/Release-Alma_Djem.pdf', 
+    link: 'https://algohits.com/loja/artista/alma-djem/', 
     isImage: true, 
     hasBackground: false, 
     fullSize: true 
-  }
+  },
 ]
 
 export const Carousel: React.FC = () => {
